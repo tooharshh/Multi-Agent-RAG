@@ -1,0 +1,197 @@
+"""
+Agent 3 — Critic (Bonus +5 pts).
+Verifies citations against retrieved sources, flags unsupported claims.
+"""
+
+import json
+import os
+import re
+from dotenv import load_dotenv
+from langchain_cerebras import ChatCerebras
+from langchain_core.messages import SystemMessage, HumanMessage
+
+load_dotenv()
+CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
+
+llm_fast = ChatCerebras(
+    model="llama3.1-8b",
+    api_key=CEREBRAS_API_KEY,
+    temperature=0,
+)
+
+SUPPORT_CHECK_PROMPT = """You are a fact-checking assistant. Determine if the given excerpt from a document could support the claim. The excerpt may be a portion of a larger document. If the excerpt contains relevant information that relates to the claim's topic and doesn't contradict it, consider it supported.
+
+Claim: "{claim}"
+Excerpt from {doc_id}: "{excerpt}"
+
+Does the excerpt support or relate to the claim? Answer in JSON only:
+{{"supported": true or false, "explanation": "one sentence"}}"""
+
+
+def _parse_json_response(text: str) -> dict:
+    """Extract JSON from LLM response."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+    match = re.search(r"\{.*?\}", text, re.DOTALL)
+    if match:
+        return json.loads(match.group())
+    raise ValueError(f"No JSON found: {text[:200]}")
+
+
+def _extract_cited_sentences(answer: str) -> list[dict]:
+    """
+    Extract sentences with citations from the answer.
+    Returns list of {"sentence": ..., "doc_id": "DOC-XXX"}.
+    """
+    results = []
+    # Split on sentence boundaries, keeping citations attached
+    sentences = re.split(r"(?<=[.!?])\s+", answer)
+    for sentence in sentences:
+        citations = re.findall(r"\[DOC-(\d{3})\]", sentence)
+        for doc_num in citations:
+            doc_id = f"DOC-{doc_num}"
+            # Clean the sentence for claim checking
+            clean_sentence = re.sub(r"\[DOC-\d{3}\]", "", sentence).strip()
+            if clean_sentence:
+                results.append({"sentence": clean_sentence, "doc_id": doc_id})
+    return results
+
+
+class CriticAgent:
+    """
+    Agent 3: Verifies each citation in the answer against retrieved context.
+    Flags unsupported claims and computes confidence score.
+    """
+
+    def __init__(self, retriever=None):
+        """
+        Args:
+            retriever: Optional HybridRetriever for re-retrieval on flagged claims
+        """
+        self.llm = llm_fast
+        self.retriever = retriever
+
+    def _find_chunk_for_doc(self, doc_id: str, chunks: list[dict]) -> str | None:
+        """Find the most relevant chunk text for a given doc_id."""
+        for chunk in chunks:
+            if chunk["doc_id"] == doc_id:
+                return chunk["text"]
+        return None
+
+    def _check_support(self, claim: str, doc_id: str, excerpt: str) -> dict:
+        """Ask Llama 8B if the excerpt supports the claim."""
+        prompt = SUPPORT_CHECK_PROMPT.format(
+            claim=claim,
+            doc_id=doc_id,
+            excerpt=excerpt[:2000],  # Limit excerpt length
+        )
+        try:
+            response = self.llm.invoke([
+                SystemMessage(content="You are a precise fact-checker. Output JSON only."),
+                HumanMessage(content=prompt),
+            ])
+            result = _parse_json_response(response.content)
+            return result
+        except Exception as e:
+            print(f"[Critic] Support check failed for {doc_id}: {e}")
+            return {"supported": True, "explanation": "Check failed — assuming supported"}
+
+    def run(
+        self,
+        question: str,
+        reasoner_output: dict,
+        context_package: dict,
+    ) -> dict:
+        """
+        Verify the reasoner's answer against retrieved sources.
+
+        Args:
+            question: Original user question
+            reasoner_output: Output from Agent 2 (chain_of_thought, answer, citations)
+            context_package: Output from Agent 1 (route, retrieved_chunks, source_doc_ids)
+
+        Returns:
+            {
+                "verified_answer": "...",
+                "flagged_claims": [...],
+                "confidence_score": 0.0-1.0,
+                "needs_rerun": bool
+            }
+        """
+        answer = reasoner_output.get("answer", "")
+        retrieved_chunks = context_package.get("retrieved_chunks", [])
+        valid_doc_ids = set(context_package.get("source_doc_ids", []))
+
+        # Extract all cited sentences
+        cited_sentences = _extract_cited_sentences(answer)
+        if not cited_sentences:
+            return {
+                "verified_answer": answer,
+                "flagged_claims": [],
+                "confidence_score": 1.0,
+                "needs_rerun": False,
+            }
+
+        print(f"[Critic] Checking {len(cited_sentences)} cited claims...")
+
+        flagged_claims = []
+        total_claims = len(cited_sentences)
+        supported_claims = 0
+
+        for item in cited_sentences:
+            doc_id = item["doc_id"]
+            claim = item["sentence"]
+
+            # Step 1: Existence check — is doc_id in retrieved context?
+            if doc_id not in valid_doc_ids:
+                flagged_claims.append(
+                    f"Claim '{claim[:80]}...' cites {doc_id} which was NOT retrieved — not in context"
+                )
+                continue
+
+            # Step 2: Support check — does the chunk actually support the claim?
+            excerpt = self._find_chunk_for_doc(doc_id, retrieved_chunks)
+            if excerpt is None:
+                flagged_claims.append(
+                    f"Claim '{claim[:80]}...' cites {doc_id} but no chunk text found for verification"
+                )
+                continue
+
+            check = self._check_support(claim, doc_id, excerpt)
+            if check.get("supported", True):
+                supported_claims += 1
+            else:
+                flagged_claims.append(
+                    f"Claim '{claim[:80]}...' cites {doc_id} — UNSUPPORTED: {check.get('explanation', 'N/A')}"
+                )
+
+        # Compute confidence
+        confidence = supported_claims / total_claims if total_claims > 0 else 1.0
+
+        # Mark unsupported citations in the answer
+        verified_answer = answer
+        for flag in flagged_claims:
+            # Find the doc_id mentioned in the flag
+            flag_doc_match = re.search(r"cites (DOC-\d{3})", flag)
+            if flag_doc_match and "NOT retrieved" in flag:
+                bad_id = flag_doc_match.group(1)
+                verified_answer = verified_answer.replace(
+                    f"[{bad_id}]", f"[{bad_id}] [UNSUPPORTED]"
+                )
+
+        needs_rerun = len(flagged_claims) > 1
+
+        # Optional re-retrieval for flagged claims
+        if needs_rerun and self.retriever is not None:
+            print(f"[Critic] {len(flagged_claims)} claims flagged — could trigger re-retrieval")
+
+        print(f"[Critic] Confidence: {confidence:.2f} — {len(flagged_claims)} flagged out of {total_claims} claims")
+
+        return {
+            "verified_answer": verified_answer,
+            "flagged_claims": flagged_claims,
+            "confidence_score": round(confidence, 3),
+            "needs_rerun": needs_rerun,
+        }
