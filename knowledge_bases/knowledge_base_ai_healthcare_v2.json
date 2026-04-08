@@ -1,0 +1,420 @@
+{
+  "metadata": {
+    "dataset_name": "Healthcare AI Knowledge Base (Together Fund v2)",
+    "version": "2.0",
+    "created": "2026-04-08",
+    "domain": "AI in Healthcare",
+    "total_documents": 21,
+    "source_types": {
+      "market_report": 7,
+      "research_paper": 10,
+      "ethics_framework": 3,
+      "clinical_research": 1
+    },
+    "coverage_note": "21-article research corpus providing global coverage of AI in healthcare: market adoption, clinical applications (imaging, drug discovery, scribes, devices), drug discovery AI landscape, FDA regulation, algorithmic bias, ethics frameworks, and contemporary workforce/organizational AI integration. All articles are sourced documents with verified URLs as of April 8, 2026. Documents sourced from peer-reviewed journals (PMC, npj), market research firms (Menlo Ventures, Grand View Research, MarketsandMarkets), clinical research institutions (Harvard, Stanford), and news media (NPR).",
+    "urls_verified_date": "2026-04-08"
+  },
+  "documents": [
+    {
+      "doc_id": "DOC-001",
+      "article_number": "01",
+      "title": "2025: The State of AI in Healthcare",
+      "source_type": "market_report",
+      "source": "Menlo Ventures",
+      "url": "https://menlovc.com/perspective/2025-the-state-of-ai-in-healthcare/",
+      "date": "2025-10-01",
+      "tags": [
+        "market_adoption",
+        "healthcare_AI",
+        "enterprise_AI",
+        "domain_specific_tools",
+        "2025_trends"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-001"
+      ]
+    },
+    {
+      "doc_id": "DOC-002",
+      "article_number": "02",
+      "title": "AI in Healthcare Market Size & Share — Industry Report 2033",
+      "source_type": "market_report",
+      "source": "Grand View Research",
+      "url": "https://www.grandviewresearch.com/industry-analysis/artificial-intelligence-ai-healthcare-market",
+      "date": "2025-01-01",
+      "tags": [
+        "market_analysis",
+        "healthcare_AI",
+        "market_size",
+        "industry_report",
+        "2033_projection"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-003",
+      "article_number": "03",
+      "title": "AI in Healthcare Market Rises 37.66% CAGR by 2035",
+      "source_type": "market_report",
+      "source": "Toward Healthcare",
+      "url": "https://www.towardshealthcare.com/insights/ai-in-healthcare-market",
+      "date": "2025-12-01",
+      "tags": [
+        "market_growth",
+        "CAGR",
+        "market_projection",
+        "healthcare_AI",
+        "revenue_forecast"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-004",
+      "article_number": "04",
+      "title": "Adoption of AI in Healthcare: Survey of Health System Priorities",
+      "source_type": "research_paper",
+      "source": "PMC / Scottsdale Institute",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12202002/",
+      "date": "2024-10-01",
+      "tags": [
+        "survey",
+        "health_systems",
+        "adoption_rates",
+        "ambient_notes",
+        "clinical_documentation",
+        "imaging_AI",
+        "Fall_2024"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-001",
+        "EVAL-002",
+        "EVAL-009"
+      ]
+    },
+    {
+      "doc_id": "DOC-005",
+      "article_number": "05",
+      "title": "AI Agents in Healthcare Market Report 2025–2030",
+      "source_type": "market_report",
+      "source": "MarketsandMarkets",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/ai-agents-in-healthcare-market-231362627.html",
+      "date": "2025-01-01",
+      "tags": [
+        "market_report",
+        "AI_agents",
+        "healthcare_AI",
+        "2025_2030",
+        "market_growth"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-006",
+      "article_number": "06",
+      "title": "Artificial Intelligence in Healthcare Market — MarketsandMarkets",
+      "source_type": "market_report",
+      "source": "MarketsandMarkets",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/artificial-intelligence-healthcare-market-54679303.html",
+      "date": "2025-01-01",
+      "tags": [
+        "market_report",
+        "healthcare_AI",
+        "market_analysis",
+        "2025"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-007",
+      "article_number": "07",
+      "title": "7 Ways AI Is Transforming Healthcare",
+      "source_type": "research_paper",
+      "source": "World Economic Forum",
+      "url": "https://www.weforum.org/stories/2025/08/ai-transforming-global-health/",
+      "date": "2025-08-01",
+      "tags": [
+        "clinical_applications",
+        "AI_transformation",
+        "global_health",
+        "healthcare_AI",
+        "innovation"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-008",
+      "article_number": "08",
+      "title": "2025 Watch List: Artificial Intelligence in Health Care",
+      "source_type": "research_paper",
+      "source": "NCBI / Canada Health",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK613808/",
+      "date": "2024-01-01",
+      "tags": [
+        "review",
+        "healthcare_AI",
+        "2025_watch_list",
+        "policy",
+        "Canada"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-009",
+      "article_number": "09",
+      "title": "AI Scribes in Health Care: Balancing Transformative Potential",
+      "source_type": "research_paper",
+      "source": "PMC / JMIR Medical Informatics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12316405/",
+      "date": "2025-01-01",
+      "tags": [
+        "ambient_AI",
+        "clinical_documentation",
+        "ChatRWD",
+        "agentic_systems",
+        "LLM_comparison",
+        "clinical_AI"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-003"
+      ]
+    },
+    {
+      "doc_id": "DOC-010",
+      "article_number": "10",
+      "title": "AI Medical Devices: 2025 Status, Regulation & Challenges",
+      "source_type": "clinical_research",
+      "source": "IntuitionLabs",
+      "url": "https://intuitionlabs.ai/articles/ai-medical-devices-regulation-2025",
+      "date": "2025-10-01",
+      "tags": [
+        "FDA_approval",
+        "medical_devices",
+        "AI_devices",
+        "regulation",
+        "radiology",
+        "clinical_specialty"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-004"
+      ]
+    },
+    {
+      "doc_id": "DOC-011",
+      "article_number": "11",
+      "title": "Leading AI-Driven Drug Discovery Platforms: 2025 Landscape",
+      "source_type": "research_paper",
+      "source": "ScienceDirect",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0031699725075118",
+      "date": "2025-11-01",
+      "tags": [
+        "drug_discovery",
+        "AI_platforms",
+        "pharmaceutical",
+        "landscape_analysis",
+        "2025"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-005"
+      ]
+    },
+    {
+      "doc_id": "DOC-012",
+      "article_number": "12",
+      "title": "AI-Driven Drug Discovery: A Comprehensive Review (2019–2024)",
+      "source_type": "research_paper",
+      "source": "ACS Omega",
+      "url": "https://pubs.acs.org/doi/10.1021/acsomega.5c00549",
+      "date": "2025-01-01",
+      "tags": [
+        "drug_discovery",
+        "AI",
+        "comprehensive_review",
+        "2019_2024",
+        "pharmaceutical"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-005"
+      ]
+    },
+    {
+      "doc_id": "DOC-013",
+      "article_number": "13",
+      "title": "Transformative Role of AI in Drug Discovery and Translational Medicine",
+      "source_type": "research_paper",
+      "source": "PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12406033/",
+      "date": "2025-01-01",
+      "tags": [
+        "drug_discovery",
+        "translational_medicine",
+        "AI_applications",
+        "pharmaceutical",
+        "Insilico_Medicine",
+        "IPF"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-005"
+      ]
+    },
+    {
+      "doc_id": "DOC-014",
+      "article_number": "14",
+      "title": "Unlocking the Potential: Multimodal AI in Biotechnology",
+      "source_type": "research_paper",
+      "source": "npj Digital Medicine",
+      "url": "https://www.nature.com/articles/s41746-025-01992-6",
+      "date": "2025-10-01",
+      "tags": [
+        "multimodal_AI",
+        "biotechnology",
+        "biotech_applications",
+        "digital_medicine"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-015",
+      "article_number": "15",
+      "title": "ML-Enabled Medical Devices Authorized by the FDA in 2024",
+      "source_type": "research_paper",
+      "source": "PMC / Harvard & Stanford",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12730494/",
+      "date": "2025-12-01",
+      "tags": [
+        "FDA_approval",
+        "medical_devices",
+        "radiology",
+        "demographic_gap",
+        "validation",
+        "bias_analysis"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-004",
+        "EVAL-008",
+        "EVAL-009"
+      ]
+    },
+    {
+      "doc_id": "DOC-016",
+      "article_number": "16",
+      "title": "Ethical Challenges and Evolving Strategies in AI Integration",
+      "source_type": "ethics_framework",
+      "source": "PLOS Digital Health",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11977975/",
+      "date": "2025-04-01",
+      "tags": [
+        "ethics",
+        "algorithmic_bias",
+        "clinical_AI",
+        "five_concerns",
+        "healthcare_inequities",
+        "regulatory"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-006",
+        "EVAL-010"
+      ]
+    },
+    {
+      "doc_id": "DOC-017",
+      "article_number": "17",
+      "title": "Framework for Bias Evaluation in LLMs in Healthcare Settings",
+      "source_type": "ethics_framework",
+      "source": "npj Digital Medicine",
+      "url": "https://www.nature.com/articles/s41746-025-01786-w",
+      "date": "2025-07-01",
+      "tags": [
+        "bias_evaluation",
+        "LLM",
+        "healthcare_AI",
+        "demographic_reporting",
+        "racial_equity"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-006",
+        "EVAL-008"
+      ]
+    },
+    {
+      "doc_id": "DOC-018",
+      "article_number": "18",
+      "title": "Pathways to Trustworthy AI: Ethical Clinical Challenges",
+      "source_type": "ethics_framework",
+      "source": "PMC / MDPI",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11900311/",
+      "date": "2025-03-01",
+      "tags": [
+        "trustworthy_AI",
+        "clinical_ethics",
+        "regulatory_frameworks",
+        "adaptive_oversight",
+        "post_deployment"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-010"
+      ]
+    },
+    {
+      "doc_id": "DOC-019",
+      "article_number": "19",
+      "title": "AI in Healthcare — Hastings Center Bioethics Briefing Book",
+      "source_type": "ethics_framework",
+      "source": "Hastings Center",
+      "url": "https://www.thehastingscenter.org/briefingbook/ai-in-healthcare/",
+      "date": "2025-01-01",
+      "tags": [
+        "bioethics",
+        "mental_health",
+        "LLM_limitations",
+        "sycophancy",
+        "therapeutic_AI",
+        "clinical_ethics"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-007"
+      ]
+    },
+    {
+      "doc_id": "DOC-020",
+      "article_number": "20",
+      "title": "Impact of AI on Healthcare: Diagnostics, Treatment & Operations",
+      "source_type": "research_paper",
+      "source": "Health Science Reports",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11702416/",
+      "date": "2025-01-01",
+      "tags": [
+        "AI_impact",
+        "diagnostics",
+        "treatment",
+        "operations",
+        "healthcare_AI",
+        "clinical_applications"
+      ],
+      "eval_questions_referenced": []
+    },
+    {
+      "doc_id": "DOC-021",
+      "article_number": "21",
+      "title": "AI in the Mental Health Care Workforce: Fear, Pushback & Enthusiasm",
+      "source_type": "research_paper",
+      "source": "NPR",
+      "url": "https://www.npr.org/2026/04/07/nx-s1-5771707/mental-health-care-workforce-artificial-intelligence-ai",
+      "date": "2026-04-07",
+      "tags": [
+        "mental_health",
+        "workforce",
+        "Kaiser_Permanente",
+        "strike",
+        "Limbic",
+        "AI_adoption",
+        "labor_practices",
+        "breaking_news",
+        "LIVE"
+      ],
+      "eval_questions_referenced": [
+        "EVAL-011"
+      ],
+      "note": "LIVE — Indexed April 8 2026, published April 7 2026 — not in standard LLM training data as of April 2026"
+    }
+  ]
+}

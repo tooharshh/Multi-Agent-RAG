@@ -1,0 +1,1402 @@
+{
+  "summary": {
+    "total_questions": 20,
+    "raw_score": 178,
+    "max_raw": 200,
+    "normalized_score": 44.5
+  },
+  "results": [
+    {
+      "eval_id": "EVAL-006",
+      "question": "How does algorithmic bias manifest in healthcare AI, and what mitigation strategies have evidence?",
+      "difficulty": "hard",
+      "route": "complex",
+      "sub_queries": [
+        "algorithmic bias in AI clinical decision support systems",
+        "healthcare AI data curation bias mitigation strategies",
+        "AI model interpretability for bias detection in medical imaging",
+        "genomic data bias in AI-driven precision medicine",
+        "AI fairness metrics for healthcare disparities analysis",
+        "regulatory frameworks for AI bias mitigation in healthcare"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-001",
+        "DOC-004",
+        "DOC-009",
+        "DOC-013",
+        "DOC-018",
+        "DOC-019",
+        "DOC-020",
+        "DOC-021",
+        "DOC-022",
+        "DOC-026",
+        "DOC-036",
+        "DOC-038",
+        "DOC-040",
+        "DOC-043",
+        "DOC-044",
+        "DOC-046",
+        "DOC-047",
+        "DOC-048",
+        "DOC-049",
+        "DOC-058",
+        "DOC-059",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-019",
+        "DOC-005"
+      ],
+      "ai_answer": "Algorithmic bias in healthcare AI manifests in various forms, including racial, gender, age, and socioeconomic bias [DOC-019]. The most common types of bias include differential performance across racial groups, under-prediction of risk in women, reduced performance for elderly patients, and models using insurance claims data performing worse for uninsured/Medicaid populations [DOC-019]. To mitigate bias, evidence-based strategies include prospective bias audits, stratified performance reporting, adversarial debiasing techniques, causal modeling, and diverse development teams [DOC-019]. Explainable AI (XAI) methods can help provide transparent and interpretable results, but the form of explanation matters more than its existence, and clinicians prefer causal explanations over correlational ones [DOC-058]. Regulatory frameworks, such as the FDA's Predetermined Change Control Plan (PCCP) guidance, can also help ensure the safe and effective deployment of AI models [DOC-018].",
+      "chain_of_thought": "Step 1: Algorithmic bias in healthcare AI is a significant concern, and a systematic review of 234 studies found documented bias in 42% of evaluated systems [DOC-019]. The most common types of bias include racial, gender, age, and socioeconomic bias. Step 2: The review identified five evidence-based mitigation strategies: prospective bias audits, stratified performance reporting, adversarial debiasing techniques, causal modeling, and diverse development teams [DOC-019]. Step 3: Explainable AI (XAI) methods can help mitigate bias by providing transparent and interpretable results, but the form of explanation matters more than its existence, and clinicians prefer causal explanations over correlational ones [DOC-058].",
+      "citations": [
+        {
+          "doc_id": "DOC-019",
+          "title": "Algorithmic Bias in Healthcare AI: A Systematic Review of Failures and Fixes",
+          "relevant_excerpt": "This systematic review analyzed 234 studies published between 2019 and 2025 that evaluated bias in healthcare AI systems."
+        },
+        {
+          "doc_id": "DOC-058",
+          "title": "Explainable AI in Healthcare: Methods, Challenges, and Clinical Acceptance",
+          "relevant_excerpt": "The 'black box' nature of deep learning models remains a significant barrier to clinical adoption of healthcare AI."
+        },
+        {
+          "doc_id": "DOC-018",
+          "title": "FDA's Evolving Framework for AI/ML-Based Software as a Medical Device",
+          "relevant_excerpt": "The FDA has cleared or approved over 950 AI/ML-enabled medical devices as of October 2025, up from 692 at the end of 2023 \u2014 a 37% increase."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, breaking down the problem into three logical steps. It accurately identifies the types of bias in healthcare AI and the evidence-based mitigation strategies. The AI also provides additional relevant information about explainable AI and regulatory frameworks, but this does not detract from its overall accuracy and completeness.",
+        "total": 10
+      },
+      "elapsed_seconds": 8.85
+    },
+    {
+      "eval_id": "EVAL-013",
+      "question": "Across all the evidence, what are the most impactful AI applications in terms of measurable patient outcomes?",
+      "difficulty": "hard",
+      "route": "complex",
+      "sub_queries": [
+        "AI sepsis prediction hospital outcomes mortality reduction",
+        "AI robotic surgery complication rates reduction",
+        "AI mammography cancer detection improvement rates",
+        "AI neonatal intensive care prediction outcomes",
+        "AI mental health suicide risk prediction results",
+        "AI cardiovascular disease risk prediction accuracy improvement"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-003",
+        "DOC-005",
+        "DOC-006",
+        "DOC-011",
+        "DOC-012",
+        "DOC-013",
+        "DOC-014",
+        "DOC-015",
+        "DOC-018",
+        "DOC-019",
+        "DOC-025",
+        "DOC-026",
+        "DOC-028",
+        "DOC-031",
+        "DOC-032",
+        "DOC-033",
+        "DOC-041",
+        "DOC-042",
+        "DOC-043",
+        "DOC-049",
+        "DOC-050",
+        "DOC-053",
+        "DOC-054",
+        "DOC-057",
+        "DOC-058",
+        "DOC-059",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-003",
+        "DOC-011",
+        "DOC-031",
+        "DOC-032",
+        "DOC-033",
+        "DOC-042"
+      ],
+      "ai_answer": "The most impactful AI applications in terms of measurable patient outcomes include AI-enhanced surgery, which has been shown to reduce intraoperative injury to ureters by 52% and decrease conversion to open surgery by 28% [DOC-031]. AI for hospital-acquired infection prevention has been shown to predict C. difficile infection 48 hours before clinical diagnosis with AUROC 0.87, enabling proactive isolation and antibiotic stewardship interventions [DOC-053]. AI for sepsis prediction has been shown to achieve AUROC 0.93 for sepsis onset prediction 6 hours before clinical recognition, sensitivity 88.2%, specificity 90.1%, and positive predictive value 42.3% [DOC-011]. Additionally, AI applications in mammography, such as computer-aided detection (CAD) in mammography, have been shown to improve cancer detection and reduce false positives [DOC-042]. AI applications in clinical documentation, such as ambient AI scribes, have been shown to reduce physician burnout and improve patient care [DOC-013]. Finally, AI applications in emergency departments, such as AI triage, patient flow optimization, and clinical decision support, have been shown to improve patient outcomes and reduce wait times [DOC-043]. AI applications in climate change and health, such as modeling heat-related mortality and predicting the spread of vector-borne diseases, have been shown to improve public health outcomes [DOC-054].",
+      "chain_of_thought": "Step 1: The question asks for the most impactful AI applications in terms of measurable patient outcomes. Relevant documents include those that discuss AI applications with measurable outcomes, such as sepsis prediction, AI-enhanced surgery, and AI for hospital-acquired infection prevention. [DOC-011, DOC-031, DOC-053]\nStep 2: The documents also mention AI applications in mammography, such as computer-aided detection (CAD) in mammography, which has been shown to improve cancer detection and reduce false positives. [DOC-042]\nStep 3: Additionally, AI applications in clinical documentation, such as ambient AI scribes, have been shown to reduce physician burnout and improve patient care. [DOC-013]\nStep 4: The documents also mention AI applications in emergency departments, such as AI triage, patient flow optimization, and clinical decision support, which have been shown to improve patient outcomes and reduce wait times. [DOC-043]\nStep 5: Finally, the documents mention AI applications in climate change and health, such as modeling heat-related mortality and predicting the spread of vector-borne diseases, which have been shown to improve public health outcomes. [DOC-054]\nStep 6: Based on the analysis of the documents, the most impactful AI applications in terms of measurable patient outcomes are AI-enhanced surgery, AI for hospital-acquired infection prevention, and AI for sepsis prediction.",
+      "citations": [
+        {
+          "doc_id": "DOC-011",
+          "title": "Sepsis Prediction with Real-Time Machine Learning: Saving Lives in ICUs",
+          "relevant_excerpt": "Sepsis remains the leading cause of death in intensive care units worldwide, killing approximately 11 million people annually. Early detection is critical \u2014 each hour of delayed treatment increases mortality by 4-8%. We developed SEPSISWATCH-3, a gradient-boosted machine learning model integrated into the Epic EHR system at 45 hospitals in the US."
+        },
+        {
+          "doc_id": "DOC-031",
+          "title": "Robotic Surgery Enhanced by AI: Real-Time Tissue Identification and Navigation",
+          "relevant_excerpt": "Surgical robotics, led by Intuitive Surgical's da Vinci platform (installed base of 9,200 systems globally), is being enhanced by real-time AI. The latest generation, da Vinci 5, incorporates AI-powered tissue identification that highlights critical anatomical structures (ureters, blood vessels, nerves) during laparoscopic procedures using a combination of standard visible-light imaging and near-infrared fluorescence."
+        },
+        {
+          "doc_id": "DOC-042",
+          "title": "Computer-Aided Detection in Mammography: Two Decades of AI Evolution",
+          "relevant_excerpt": "Computer-aided detection (CAD) in mammography has evolved from early rule-based systems with high false-positive rates to modern deep learning models that rival expert radiologists."
+        },
+        {
+          "doc_id": "DOC-043",
+          "title": "Emergency Department AI: Triage, Flow Optimization, and Decision Support",
+          "relevant_excerpt": "Emergency departments are among the most data-rich, high-pressure environments in healthcare \u2014 making them prime targets for AI deployment. AI applications in the ED fall into three categories: (1) AI Triage: Traditional triage assigns patients to ESI levels 1-5 based on brief nurse assessment."
+        },
+        {
+          "doc_id": "DOC-053",
+          "title": "AI for Hospital-Acquired Infection Prevention",
+          "relevant_excerpt": "Hospital-acquired infections (HAIs) affect 1 in 31 hospital patients in the US, causing approximately 99,000 deaths and $33 billion in excess costs annually. AI is being applied to HAI prevention through three main approaches: (1) Predictive risk models: ML models that identify patients at highest risk of developing specific HAIs (catheter-associated UTI, central line-associated bloodstream infection, surgical site infection, C. difficile) from admission data and ongoing clinical trajectory."
+        },
+        {
+          "doc_id": "DOC-054",
+          "title": "Climate Change and AI in Healthcare: Modeling Health Impacts and Adaptation",
+          "relevant_excerpt": "Climate change is increasingly recognized as a health emergency, and AI is being deployed to model, predict, and mitigate its health impacts. Heat-related mortality is projected to increase by 370% by 2050 under current emissions trajectories."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a detailed chain of thought with clear numbered steps, identifying relevant documents, extracting key facts, and synthesizing the information to arrive at the most impactful AI applications in terms of measurable patient outcomes. However, it does not fully match the expected answer, missing some key applications and outcomes. Nevertheless, the AI demonstrates a good understanding of the topic and provides accurate information.",
+        "total": 8
+      },
+      "elapsed_seconds": 9.25
+    },
+    {
+      "eval_id": "EVAL-015",
+      "question": "How is AI being used to address health equity and bias in clinical algorithms?",
+      "difficulty": "hard",
+      "route": "complex",
+      "sub_queries": [
+        "AI dermatology skin tone diversity dataset equity",
+        "genomic risk prediction underrepresented populations accuracy",
+        "social determinants of health AI prediction models",
+        "algorithmic bias audit strategies clinical AI evidence",
+        "AI clinical tools racial gender bias mitigation",
+        "healthcare AI data collection culturally sensitive practices"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-001",
+        "DOC-004",
+        "DOC-005",
+        "DOC-008",
+        "DOC-014",
+        "DOC-016",
+        "DOC-018",
+        "DOC-019",
+        "DOC-020",
+        "DOC-021",
+        "DOC-024",
+        "DOC-025",
+        "DOC-026",
+        "DOC-029",
+        "DOC-036",
+        "DOC-041",
+        "DOC-042",
+        "DOC-044",
+        "DOC-046",
+        "DOC-047",
+        "DOC-050",
+        "DOC-051",
+        "DOC-054",
+        "DOC-055",
+        "DOC-058",
+        "DOC-059",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-005",
+        "DOC-008",
+        "DOC-019",
+        "DOC-041"
+      ],
+      "ai_answer": "AI is being used to address health equity and bias in clinical algorithms through various approaches. In dermatology, the DermEquity dataset is being used to train AI models for skin cancer detection across diverse skin tones, with a recommended minimum of 15% representation per Fitzpatrick type [DOC-005]. This approach has shown promise in improving sensitivity for Fitzpatrick V-VI skin, outperforming models trained on predominantly lighter skin tones. Additionally, AI models are being used to model, predict, and mitigate the health impacts of climate change, including heat-related mortality and vector-borne diseases [DOC-054]. These models have been deployed in 12 countries through the WHO's climate-health surveillance network. Furthermore, explainable AI (XAI) methods, such as SHAP and Grad-CAM, are being used to provide insights into AI-driven clinical decisions and increase trust among clinicians [DOC-058]. SHAP explanations were rated as 'helpful' by 78% of surveyed clinicians in clinical risk prediction, while Grad-CAM overlays helped radiologists verify AI predictions, increasing trust from 54% to 82%. Overall, these approaches demonstrate the potential of AI to address health equity and bias in clinical algorithms.",
+      "chain_of_thought": "Step 1: The question asks how AI is being used to address health equity and bias in clinical algorithms. Relevant documents include those discussing AI in dermatology, climate change, and explainable AI. \nStep 2: DermEquity, a dataset of 218,000 dermoscopic and clinical images balanced across all six Fitzpatrick skin types, is being used to train AI models for skin cancer detection [DOC-005]. \nStep 3: AI models are also being used to model, predict, and mitigate the health impacts of climate change, including heat-related mortality and vector-borne diseases [DOC-054]. \nStep 4: Explainable AI (XAI) methods, such as SHAP and Grad-CAM, are being used to provide insights into AI-driven clinical decisions and increase trust among clinicians [DOC-058].",
+      "citations": [
+        {
+          "doc_id": "DOC-005",
+          "title": "Dermatology AI: Skin Cancer Detection Across Diverse Skin Tones",
+          "relevant_excerpt": "AI-based dermatology tools have shown promise for skin cancer detection, but most have been trained predominantly on images of lighter skin tones (Fitzpatrick types I-III), raising equity concerns."
+        },
+        {
+          "doc_id": "DOC-054",
+          "title": "Climate Change and AI in Healthcare: Modeling Health Impacts and Adaptation",
+          "relevant_excerpt": "AI models combining weather forecasts, urban heat island maps, demographic vulnerability data, and health system capacity can predict heat-related ED surges 3-5 days in advance with 78% accuracy, enabling preemptive resource allocation."
+        },
+        {
+          "doc_id": "DOC-058",
+          "title": "Explainable AI in Healthcare: Methods, Challenges, and Clinical Acceptance",
+          "relevant_excerpt": "SHAP explanations were rated as 'helpful' by 78% of surveyed clinicians in clinical risk prediction, while Grad-CAM overlays helped radiologists verify AI predictions, increasing trust from 54% to 82%."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear chain of thought with numbered steps, identifying relevant documents and extracting key facts. It synthesizes these facts to address the question, providing a comprehensive answer. However, it does not fully replicate the expected answer, missing some specific details and metrics.",
+        "total": 8
+      },
+      "elapsed_seconds": 7.93
+    },
+    {
+      "eval_id": "EVAL-016",
+      "question": "What role is AI playing in pandemic preparedness and disease surveillance?",
+      "difficulty": "hard",
+      "route": "complex",
+      "sub_queries": [
+        "AI-powered pandemic forecasting model accuracy",
+        "machine learning-based disease surveillance system scalability",
+        "deep learning for COVID-19 diagnosis from chest X-rays",
+        "natural language processing for real-time pandemic news monitoring",
+        "AI-driven contact tracing app effectiveness",
+        "genomic sequencing for SARS-CoV-2 mutation tracking"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-002",
+        "DOC-003",
+        "DOC-004",
+        "DOC-008",
+        "DOC-011",
+        "DOC-013",
+        "DOC-015",
+        "DOC-022",
+        "DOC-024",
+        "DOC-026",
+        "DOC-027",
+        "DOC-031",
+        "DOC-032",
+        "DOC-034",
+        "DOC-035",
+        "DOC-036",
+        "DOC-038",
+        "DOC-040",
+        "DOC-042",
+        "DOC-043",
+        "DOC-044",
+        "DOC-049",
+        "DOC-050",
+        "DOC-053",
+        "DOC-054",
+        "DOC-056",
+        "DOC-058",
+        "DOC-059",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-040",
+        "DOC-056"
+      ],
+      "ai_answer": "AI is playing a crucial role in pandemic preparedness and disease surveillance. AI-powered early warning systems, such as BlueDot, are monitoring 150 infectious diseases across 150 countries using NLP on news reports, airline ticketing data, livestock health reports, and climate data [DOC-040]. Additionally, AI models are being used to predict heat-related ED surges and the geographic spread of vector-borne diseases, enabling preemptive resource allocation [DOC-054]. Furthermore, AI is being used in genomic surveillance, such as GISAID's platform, which processes 2 million SARS-CoV-2 sequences monthly, and the Nucleic Acid Observatory (NAO), which uses metagenomic sequencing of wastewater to detect novel pathogens [DOC-040]. AI is also being used to scan internet sources daily in 50 languages for disease outbreak signals through the WHO's EPIWATCH platform [DOC-040]. However, challenges persist, including geopolitical barriers to data sharing, computational cost of real-time genomic analysis at scale, high false-positive rates in early warning systems, and the 'last mile' problem of translating AI-generated warnings into timely public health action [DOC-040].",
+      "chain_of_thought": "Step 1: The question asks about the role of AI in pandemic preparedness and disease surveillance. Relevant documents include DOC-040, which discusses AI in pandemic preparedness, and DOC-054, which explores AI's role in climate change and disease surveillance. [DOC-040] [DOC-054]\nStep 2: DOC-040 highlights the use of AI in early warning systems, genomic surveillance, and disease detection. It mentions BlueDot, GISAID, and the Nucleic Acid Observatory (NAO) as examples of AI-powered systems. [DOC-040]\nStep 3: DOC-054 discusses AI's role in modeling, predicting, and mitigating the health impacts of climate change. It mentions the use of AI models to predict heat-related ED surges and the geographic spread of vector-borne diseases. [DOC-054]\nStep 4: DOC-026 touches on AI's role in telehealth, particularly in virtual triage and symptom assessment. However, it does not directly address pandemic preparedness or disease surveillance. [DOC-026]\nStep 5: DOC-015, DOC-049, and DOC-031 discuss AI applications in healthcare, but they do not directly address pandemic preparedness or disease surveillance. [DOC-015] [DOC-049] [DOC-031]\nStep 6: DOC-034 discusses AI-designed mRNA vaccines, but it is not directly related to pandemic preparedness or disease surveillance. [DOC-034]",
+      "citations": [
+        {
+          "doc_id": "DOC-040",
+          "title": "Pandemic Preparedness AI: Early Warning Systems and Genomic Surveillance",
+          "relevant_excerpt": "The COVID-19 pandemic exposed critical gaps in global disease surveillance. AI is now central to next-generation pandemic early warning systems."
+        },
+        {
+          "doc_id": "DOC-054",
+          "title": "Climate Change and AI in Healthcare: Modeling Health Impacts and Adaptation",
+          "relevant_excerpt": "AI models combining weather forecasts, urban heat island maps, demographic vulnerability data, and health system capacity can predict heat-related ED surges 3-5 days in advance with 78% accuracy, enabling preemptive resource allocation."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, identifying relevant documents, extracting key facts, and synthesizing them to answer the question. The AI correctly cites most of the expected source documents and provides a thorough explanation of AI's role in pandemic preparedness and disease surveillance.",
+        "total": 8
+      },
+      "elapsed_seconds": 8.99
+    },
+    {
+      "eval_id": "EVAL-020",
+      "question": "If a health system wanted to deploy AI with the highest ROI in the shortest time, what should they start with and why?",
+      "difficulty": "hard",
+      "route": "complex",
+      "sub_queries": [
+        "AI sepsis prediction hospital outcomes mortality reduction",
+        "AI radiology image analysis cancer detection accuracy improvement",
+        "AI medication adherence patient engagement outcomes",
+        "AI clinical decision support system hospital readmission rates reduction",
+        "AI telemedicine patient satisfaction and engagement metrics",
+        "AI electronic health record data analytics cost savings"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-003",
+        "DOC-004",
+        "DOC-005",
+        "DOC-011",
+        "DOC-013",
+        "DOC-015",
+        "DOC-016",
+        "DOC-022",
+        "DOC-026",
+        "DOC-028",
+        "DOC-029",
+        "DOC-032",
+        "DOC-036",
+        "DOC-038",
+        "DOC-039",
+        "DOC-041",
+        "DOC-042",
+        "DOC-043",
+        "DOC-045",
+        "DOC-047",
+        "DOC-048",
+        "DOC-049",
+        "DOC-050",
+        "DOC-053",
+        "DOC-054",
+        "DOC-057",
+        "DOC-058",
+        "DOC-059",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-048",
+        "DOC-013",
+        "DOC-016",
+        "DOC-003"
+      ],
+      "ai_answer": "To deploy AI with the highest ROI in the shortest time, a health system should start with sepsis prediction using real-time machine learning, as demonstrated by SEPSISWATCH-3 [DOC-011]. This model achieved a 1.7 percentage point reduction in sepsis-related mortality and a 0.8-day reduction in average ICU length of stay. Additionally, conversational AI for chronic disease management, such as Lark Health's AI health coach, has shown measurable impact in reducing HbA1c levels and improving patient engagement [DOC-057]. \nAI-assisted mammography, represented by systems from Lunit, Therapixel, and iCAD, has also demonstrated significant benefits in detecting interval cancers and reducing false-positive recalls [DOC-042]. \nThese applications have the potential to provide substantial returns on investment in a relatively short timeframe, given their proven track records and the availability of relevant data and technologies. \nHowever, it's essential to consider the feasibility of implementation, including data availability, interoperability, and regulatory clearance, to ensure successful deployment and maximize ROI.",
+      "chain_of_thought": "Step 1: The question asks about the highest ROI in the shortest time, so we need to identify the most impactful AI applications in healthcare. Relevant documents include those that demonstrate significant improvements in patient outcomes, cost savings, or efficiency gains. \nStep 2: We can start by examining the applications that have shown the most substantial benefits in terms of patient outcomes, such as sepsis prediction, AI-assisted mammography, and conversational AI for chronic disease management. \nStep 3: Next, we need to consider the feasibility of implementing these solutions in a short timeframe, taking into account factors such as data availability, interoperability, and regulatory clearance.",
+      "citations": [
+        {
+          "doc_id": "DOC-011",
+          "title": "Sepsis Prediction with Real-Time Machine Learning: Saving Lives in ICUs",
+          "relevant_excerpt": "Hospitals using SEPSISWATCH-3 saw a 1.7 percentage point reduction in sepsis-related mortality (from 24.8% to 23.1%, p = 0.003) and a 0.8-day reduction in average ICU length of stay."
+        },
+        {
+          "doc_id": "DOC-057",
+          "title": "Conversational AI for Chronic Disease Management: Diabetes and Heart Failure",
+          "relevant_excerpt": "For type 2 diabetes, the most-studied systems are: Lark Health (AI health coach, 500,000+ users, demonstrated 1.0% HbA1c reduction in a 12-month RCT)"
+        },
+        {
+          "doc_id": "DOC-042",
+          "title": "Computer-Aided Detection in Mammography: Two Decades of AI Evolution",
+          "relevant_excerpt": "In the OPTIMAM study (620,000 UK screening mammograms), Lunit's AI detected 20% more interval cancers \u2014 cancers missed at screening but diagnosed before the next screen \u2014 with no increase in false-positive recalls."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 1,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provided a clear chain of thought with numbered steps, identifying relevant applications and considering feasibility. However, it failed to mention the specific 'quick win' use cases (ambient AI scribes, AI coding/billing, and radiology AI triage) that are known to have the highest ROI in the shortest time. The AI's suggestions (sepsis prediction, AI-assisted mammography, and conversational AI for chronic disease management) are impactful but not necessarily the highest ROI in the shortest time.",
+        "total": 7
+      },
+      "elapsed_seconds": 8.07
+    },
+    {
+      "eval_id": "EVAL-003",
+      "question": "Compare the approaches of Google, Microsoft, and Amazon in healthcare AI. Which company has the highest estimated healthcare AI revenue?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "Google healthcare AI partnerships and collaborations",
+        "Microsoft healthcare AI platform features and applications",
+        "Amazon healthcare AI services and solutions",
+        "estimated Google healthcare AI revenue 2025",
+        "estimated Microsoft healthcare AI revenue 2025",
+        "estimated Amazon healthcare AI revenue 2025"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-004",
+        "DOC-007",
+        "DOC-013",
+        "DOC-016",
+        "DOC-018",
+        "DOC-020",
+        "DOC-021",
+        "DOC-028",
+        "DOC-029",
+        "DOC-037",
+        "DOC-038",
+        "DOC-039",
+        "DOC-043",
+        "DOC-059",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-038"
+      ],
+      "ai_answer": "Google's approach to healthcare AI is research-driven, focusing on medical large language models like Med-PaLM 3 and MedLM, which are offered as cloud-based APIs on Google Cloud Platform, with revenue generated primarily through cloud consumption by health AI startups [DOC-038]. Google also develops multimodal AI systems such as MedGemini-Rad, which integrates radiology images, clinical notes, lab results, and genomic data to improve diagnostic accuracy, and is piloting this technology with HCA Healthcare and Apollo Hospitals [DOC-004]. Microsoft's strategy centers on enterprise integration, particularly through its $19.7 billion acquisition of Nuance Communications in 2022, enabling deep EHR integration via DAX Copilot, an ambient AI scribe deployed in over 550 hospitals and serving as its primary revenue generator [DOC-038]. Microsoft also leverages Azure for Health infrastructure and a strategic partnership with Epic, granting access to 305 million patient records for AI development [DOC-038]. Amazon's approach combines cloud infrastructure dominance\u2014AWS powers 60% of healthcare AI startups\u2014with vertical integration via its $3.9 billion acquisition of One Medical, providing 200+ primary care clinics as real-world AI testing environments [DOC-038]. Amazon's health AI products include HealthLake, Comprehend Medical, and a pivoted B2B focus after shuttering Amazon Clinic in 2024 [DOC-038]. In terms of revenue, Microsoft has the highest estimated healthcare AI revenue at $1.5 billion in 2025, followed by Amazon at $1.2 billion and Google at $800 million [DOC-038].",
+      "chain_of_thought": "Step 1: Identify relevant documents that discuss Google, Microsoft, and Amazon's healthcare AI approaches and revenue. DOC-038 is the primary source, providing detailed strategies and revenue estimates for all three companies. DOC-004 adds depth to Google's technical approach with MedGemini-Rad. DOC-013 supports Microsoft's DAX Copilot deployment and impact. Other documents (DOC-037, DOC-028, DOC-018, DOC-060, DOC-020) are less relevant as they focus on broader trends, regulation, or other players.\n\nStep 2: Extract specific facts about each company's strategy:\n- Google: Focus on medical AI research, Med-PaLM 3, MedLM API, partnerships with HCA and Apollo, revenue via Google Cloud consumption. Revenue: $800M in 2025 [DOC-038]. Also developing multimodal AI (MedGemini-Rad) integrating imaging, EHR, and genomics [DOC-004].\n- Microsoft: Centered on Nuance acquisition ($19.7B), DAX Copilot in 550+ hospitals, Azure for Health infrastructure, Epic partnership with access to 305M patient records. Revenue: $1.5B in 2025 [DOC-038]. DAX reduces documentation time and improves physician satisfaction [DOC-013].\n- Amazon: AWS powers 60% of healthcare AI startups, HealthLake, Comprehend Medical, Amazon Clinic (shuttered), One Medical acquisition ($3.9B) for real-world AI testing. Revenue: $1.2B in 2025 [DOC-038].\n\nStep 3: Compare the three:\n- Google: Research-first, cloud-based API model, lower revenue.\n- Microsoft: Enterprise EHR integration, ambient scribe as cash cow, highest revenue.\n- Amazon: Infrastructure + primary care integration, mid-tier revenue.\n\nStep 4: Verify revenue figures are directly cited: $800M (Google), $1.5B (Microsoft), $1.2B (Amazon) \u2014 all from DOC-038. No other document contradicts this. Microsoft has the highest estimated healthcare AI revenue.",
+      "citations": [
+        {
+          "doc_id": "DOC-038",
+          "title": "Big Tech in Healthcare AI: Google, Microsoft, Amazon, Apple Strategies Compared",
+          "relevant_excerpt": "Google Health has invested heavily in medical AI research, publishing over 200 peer-reviewed papers since 2019. Its key products are Med-PaLM 3 (medical LLM), MedLM (cloud-based API for health developers on Google Cloud), and partnerships with health systems (HCA Healthcare, Apollo Hospitals). Revenue is primarily through Google Cloud Platform consumption by health AI startups. Estimated healthcare AI revenue: $800M in 2025. Microsoft's strategy centers on enterprise EHR integration through its $19.7B acquisition of Nuance Communications (2022). DAX Copilot (ambient AI scribe) is deployed in 550+ hospitals and is Microsoft's healthcare AI cash cow. Azure for Health, including FHIR server and de-identification tools, provides the infrastructure layer. Microsoft's partnership with Epic gives it access to 305 million patient records for AI development. Estimated healthcare AI revenue: $1.5B in 2025. Amazon Web Services (AWS) powers 60% of healthcare AI startups' cloud infrastructure. Amazon's health AI products include HealthLake (FHIR data lake), Comprehend Medical (NLP for clinical text), and Amazon Clinic (virtual care, shuttered in 2024 and pivoted to B2B). Amazon's most significant move was the $3.9B acquisition of One Medical, giving it 200+ primary care clinics as real-world AI testing grounds. Estimated healthcare AI revenue: $1.2B in 2025."
+        },
+        {
+          "doc_id": "DOC-004",
+          "title": "The Rise of Multimodal AI in Radiology: Combining Images, Text, and Genomics",
+          "relevant_excerpt": "At Google Health, we have been investing in multimodal AI systems that go beyond analyzing medical images in isolation. Our latest model, MedGemini-Rad, integrates radiology images (CT, MRI, X-ray), clinical notes from EHRs, laboratory results, and genomic data into a single reasoning framework. We are partnering with HCA Healthcare and Apollo Hospitals to pilot MedGemini-Rad in routine clinical workflows starting Q1 2026."
+        },
+        {
+          "doc_id": "DOC-013",
+          "title": "Ambient AI Scribes: The End of Clinical Documentation Burden?",
+          "relevant_excerpt": "Microsoft's DAX Copilot (formerly Nuance DAX) is integrated into 550+ hospitals. In published outcomes data, Abridge reduces documentation time by 72%, from 16 minutes to 4.5 minutes per encounter. Physician satisfaction scores improve by 45% within 3 months of deployment."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provided a clear and detailed chain of thought, identifying relevant documents, extracting specific facts, and synthesizing them to answer the question. The AI correctly cited all expected source documents and provided accurate information about each company's strategy and revenue. The AI fully addressed all parts of the question, providing sufficient detail about each company's approach and revenue estimates.",
+        "total": 10
+      },
+      "elapsed_seconds": 14.07
+    },
+    {
+      "eval_id": "EVAL-004",
+      "question": "What evidence exists that AI triage of chest X-rays can reduce mortality, and what was the study design?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "AI chest X-ray triage mortality reduction evidence",
+        "chest X-ray AI triage study design systematic review",
+        "AI X-ray triage mortality reduction meta-analysis results",
+        "chest X-ray AI triage clinical trial outcomes",
+        "AI radiology triage mortality reduction predictive models",
+        "chest X-ray AI triage mortality reduction validation studies"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-003",
+        "DOC-004",
+        "DOC-019",
+        "DOC-026",
+        "DOC-036",
+        "DOC-039",
+        "DOC-042",
+        "DOC-043",
+        "DOC-053",
+        "DOC-054",
+        "DOC-058"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-003"
+      ],
+      "ai_answer": "The evidence that AI triage of chest X-rays can reduce mortality comes from a multicenter randomized controlled trial (RCT) described in DOC-003 [DOC-003]. The study found that AI-flagged critical chest X-rays were reported in 47 minutes, compared to 264 minutes in the control arm, and that 30-day mortality for patients with critical findings was 8.2% in the AI arm versus 11.4% in the control arm (hazard ratio 0.71, 95% CI 0.58\u20130.87) [DOC-003]. This study demonstrates that AI triage can meaningfully reduce mortality by accelerating critical diagnoses, without requiring the AI to replace radiologists. Additionally, DOC-042 highlights the potential of AI systems to improve cancer detection and reduce false positives, which is relevant to the broader context of AI triage in radiology [DOC-042].",
+      "chain_of_thought": "Step 1: The question asks for evidence that AI triage of chest X-rays can reduce mortality, and the study design. Relevant documents include DOC-003, which describes a multicenter randomized controlled trial evaluating an AI triage system for chest X-rays, and DOC-042, which discusses the evolution of computer-aided detection in mammography, including AI systems that rival expert radiologists. Step 2: DOC-003 provides evidence that AI triage of chest X-rays can reduce mortality by accelerating critical diagnoses, while DOC-042 highlights the potential of AI systems to improve cancer detection and reduce false positives. Step 3: The study design in DOC-003 is a multicenter randomized controlled trial, which is a robust study design for evaluating the effectiveness of AI triage systems.",
+      "citations": [
+        {
+          "doc_id": "DOC-003",
+          "title": "AI-Powered Chest X-Ray Triage in Emergency Departments: A Multicenter RCT",
+          "relevant_excerpt": "The primary endpoint \u2014 time from CXR acquisition to actionable report for critical findings \u2014 decreased from a median of 264 minutes to 47 minutes in the AI arm (p < 0.001). Thirty-day mortality for patients with critical findings was 8.2% in the AI arm versus 11.4% in the control arm (hazard ratio 0.71, 95% CI 0.58\u20130.87)."
+        },
+        {
+          "doc_id": "DOC-042",
+          "title": "Computer-Aided Detection in Mammography: Two Decades of AI Evolution",
+          "relevant_excerpt": "The state of the art is represented by systems from Lunit (INSIGHT MMG, deployed in 3,400+ institutions globally), Therapixel (MammoScreen, CE-marked), and iCAD (ProFound AI, FDA-cleared). In the OPTIMAM study (620,000 UK screening mammograms), Lunit's AI detected 20% more interval cancers \u2014 cancers missed at screening but diagnosed before the next screen \u2014 with no increase in false-positive recalls."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear chain of thought with numbered steps, identifying relevant documents, extracting key facts, and synthesizing the information to answer the question. The AI accurately cites the expected source documents (DOC-003) and provides additional relevant information from another document (DOC-042). The AI fully addresses all parts of the question with sufficient detail, demonstrating a high level of factual accuracy and completeness.",
+        "total": 10
+      },
+      "elapsed_seconds": 10.89
+    },
+    {
+      "eval_id": "EVAL-005",
+      "question": "What is the current state of AI-discovered drugs? Have any received FDA approval?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "AI-discovered small molecule cancer drugs FDA approval rates",
+        "AI-designed antibody therapies clinical trial success rates",
+        "AI-assisted drug repurposing for rare diseases FDA approvals",
+        "AI-optimized drug combinations for oncology clinical trial outcomes",
+        "AI-generated novel targets for infectious diseases clinical trial results",
+        "AI-driven precision medicine for genetic disorders FDA approved treatments"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-006",
+        "DOC-007",
+        "DOC-009",
+        "DOC-010",
+        "DOC-012",
+        "DOC-018",
+        "DOC-020",
+        "DOC-021",
+        "DOC-022",
+        "DOC-023",
+        "DOC-025",
+        "DOC-034",
+        "DOC-036",
+        "DOC-037",
+        "DOC-040",
+        "DOC-043",
+        "DOC-044",
+        "DOC-045",
+        "DOC-046",
+        "DOC-049",
+        "DOC-050",
+        "DOC-052",
+        "DOC-053",
+        "DOC-057"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-007",
+        "DOC-006"
+      ],
+      "ai_answer": "The current state of AI-discovered drugs is that they are being developed and tested by various companies, but none have yet received FDA approval [DOC-007]. However, several AI-discovered drugs are in the pipeline for future approvals, including Insilico Medicine's INS018_055 and Recursion's REC-994 [DOC-007]. The FDA has also established a framework for AI/ML-based software as a medical device, including the 'Predetermined Change Control Plan' (PCCP) guidance, which allows manufacturers to update AI models post-market without new 510(k) submissions [DOC-018]. This is a significant shift in the regulatory landscape, enabling the development and deployment of AI-driven medical devices. Additionally, AI is being used to accelerate the development of mRNA vaccines, such as Moderna's mRNA Design Studio, which has compressed the vaccine development timeline from 66 days to 60 days [DOC-034].",
+      "chain_of_thought": "Step 1: The question asks about the current state of AI-discovered drugs and whether any have received FDA approval. Relevant documents include DOC-007, which discusses AI-driven drug discovery startups and pharma partnerships, and DOC-018, which provides information on FDA's evolving framework for AI/ML-based software as a medical device. Step 2: DOC-007 mentions that no AI-discovered drug has yet received FDA approval, but Insilico Medicine's INS018_055 and Recursion's REC-994 are frontrunners for future approvals. Step 3: DOC-018 provides information on FDA's updated 'Predetermined Change Control Plan' (PCCP) guidance, which allows manufacturers to update AI models post-market without new 510(k) submissions.",
+      "citations": [
+        {
+          "doc_id": "DOC-007",
+          "title": "Generative AI for De Novo Molecule Design: State of the Art in 2025",
+          "relevant_excerpt": "As of Q3 2025, venture funding into AI drug discovery companies has reached $8.7 billion cumulatively, with $2.3 billion invested in 2025 alone. Key players include Recursion Pharmaceuticals (market cap $4.2B, 6 clinical-stage programs), Insilico Medicine (first AI-discovered drug REC-994 in Phase II for idiopathic pulmonary fibrosis), Isomorphic Labs (DeepMind spinout, partnerships worth $3B with Eli Lilly and Novartis), and Generate Biomedicines (protein therapeutics, $700M raised)."
+        },
+        {
+          "doc_id": "DOC-018",
+          "title": "FDA's Evolving Framework for AI/ML-Based Software as a Medical Device",
+          "relevant_excerpt": "The FDA has cleared or approved over 950 AI/ML-enabled medical devices as of October 2025, up from 692 at the end of 2023 \u2014 a 37% increase. Radiology accounts for 76% of approvals, followed by cardiology (11%) and ophthalmology (5%)."
+        },
+        {
+          "doc_id": "DOC-034",
+          "title": "AI-Designed mRNA Vaccines: From Antigen Selection to Clinical Trial in 60 Days",
+          "relevant_excerpt": "Moderna has invested heavily in AI to compress the mRNA vaccine development timeline. Our AI platform, mRNA Design Studio, integrates three key components: (1) Antigen Optimizer \u2014 a protein language model that predicts optimal antigen sequences for immune response, evaluating millions of mRNA sequence variants for codon optimization, secondary structure stability, and predicted immunogenicity."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, identifying relevant documents, extracting key facts, and synthesizing them to answer the question. The AI accurately cites two of the expected source documents (DOC-007 and DOC-018) and provides a mostly correct answer, with some minor discrepancies in the timeline for FDA approvals.",
+        "total": 8
+      },
+      "elapsed_seconds": 9.14
+    },
+    {
+      "eval_id": "EVAL-007",
+      "question": "What is the ROI profile of ambient AI scribes, and which companies lead this market?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "ambient AI scribe clinical documentation ROI analysis",
+        "market share of top AI scribe companies 2025",
+        "AI scribe adoption rates by hospital size and type",
+        "ambient AI scribe cost savings per physician per year",
+        "leading AI scribe companies by revenue growth 2020-2025",
+        "ambient AI scribe impact on physician burnout and satisfaction rates"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-007",
+        "DOC-012",
+        "DOC-013",
+        "DOC-021",
+        "DOC-029",
+        "DOC-037",
+        "DOC-038",
+        "DOC-039",
+        "DOC-046",
+        "DOC-048",
+        "DOC-050",
+        "DOC-057",
+        "DOC-058",
+        "DOC-059"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-013",
+        "DOC-048"
+      ],
+      "ai_answer": "The ROI profile of ambient AI scribes is characterized by a 3:1 return on investment from reduced documentation time and physician retention [DOC-048]. Abridge is the market leader in ambient AI scribes, with a $2.5 billion valuation and deployment at Epic-integrated health systems covering 45 million patients [DOC-013]. Microsoft's DAX Copilot is also integrated into 550+ hospitals, and Nabla, a European competitor, focuses on multilingual support across 30 languages. The business model for ambient AI scribes is typically $1,000-$1,500 per physician per month, which health systems report is cost-effective given reduced overtime and improved physician retention [DOC-013].",
+      "chain_of_thought": "Step 1: The question asks about the ROI profile of ambient AI scribes and which companies lead this market. Relevant documents include DOC-048, which discusses the ROI timeline for various healthcare AI use cases, and DOC-013, which provides market information on ambient AI scribes. Step 2: DOC-048 categorizes use cases by ROI timeline, including ambient AI scribes with a 3:1 ROI from reduced documentation time and physician retention. Step 3: DOC-013 mentions Abridge as the market leader in ambient AI scribes, with a $2.5 billion valuation and deployment at Epic-integrated health systems covering 45 million patients.",
+      "citations": [
+        {
+          "doc_id": "DOC-048",
+          "title": "The Economics of Healthcare AI: ROI Analysis Across Use Cases",
+          "relevant_excerpt": "Proving return on investment remains the critical challenge for healthcare AI adoption. This report analyzes ROI data from 150 healthcare AI deployments across 48 health systems."
+        },
+        {
+          "doc_id": "DOC-013",
+          "title": "Ambient AI Scribes: The End of Clinical Documentation Burden?",
+          "relevant_excerpt": "Abridge, which raised $250 million in 2025 at a $2.5 billion valuation and is deployed at Epic-integrated health systems covering 45 million patients."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI correctly identifies the ROI profile of ambient AI scribes as 3:1 within 6 months, classifying it as a 'quick win'. It also accurately cites Abridge as the market leader, mentioning its valuation, patient coverage, and documentation time reduction. Additionally, the AI correctly mentions Microsoft DAX Copilot's integration into 550+ hospitals and Nabla's focus on multilingual support. The AI's chain of thought is clear and detailed, with numbered steps showing document identification, fact extraction, and synthesis. The AI fully addresses all parts of the question with sufficient detail.",
+        "total": 10
+      },
+      "elapsed_seconds": 8.11
+    },
+    {
+      "eval_id": "EVAL-008",
+      "question": "How is India positioning itself in healthcare AI, and what role does the ABDM play?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "India healthcare AI market growth rate projections 2025-2030",
+        "ABDM (Ayushman Bharat Digital Mission) AI adoption strategies",
+        "India AI healthcare startup ecosystem funding trends",
+        "National Health Stack AI integration plans",
+        "India electronic health record (EHR) system AI interoperability standards",
+        "ABDM AI-powered telemedicine platform implementation status"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-007",
+        "DOC-012",
+        "DOC-013",
+        "DOC-014",
+        "DOC-016",
+        "DOC-018",
+        "DOC-021",
+        "DOC-026",
+        "DOC-028",
+        "DOC-029",
+        "DOC-031",
+        "DOC-036",
+        "DOC-037",
+        "DOC-038",
+        "DOC-039",
+        "DOC-043",
+        "DOC-046",
+        "DOC-048",
+        "DOC-058",
+        "DOC-059"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-039"
+      ],
+      "ai_answer": "India is positioning itself in healthcare AI by leveraging its digital infrastructure and the Ayushman Bharat Digital Mission (ABDM) to create a national digital health ID system and enable consent-based health record sharing [DOC-039]. The ABDM's Health Information Exchange and Consent Manager (HIE-CM) provides the interoperability layer that health AI companies need [DOC-039]. Key Indian healthcare AI companies include Niramai, Qure.ai, SigTuple, and Tricog, while international AI companies active in India include Google Health, Microsoft, and Philips [DOC-039]. The Indian government's eSanjeevani telemedicine platform has handled 170+ million teleconsultations and is integrating AI triage [DOC-039]. The Indian healthcare AI market is estimated at $1.2 billion in 2025, projected to reach $5.8 billion by 2030 [DOC-039]. NASSCOM estimates that AI could address 30% of India's healthcare access gap if deployed at scale across primary care [DOC-039].",
+      "chain_of_thought": "Step 1: India is positioning itself in healthcare AI, driven by acute physician shortages, a vast uninsured population, and increasing digital infrastructure [DOC-039]. The Ayushman Bharat Digital Mission (ABDM) has created 620 million Ayushman Bharat Health Accounts (ABHAs), establishing a national digital health ID system [DOC-039]. Step 2: The ABDM's Health Information Exchange and Consent Manager (HIE-CM) enables consent-based health record sharing, providing the interoperability layer that health AI companies need [DOC-039]. Step 3: Key Indian healthcare AI companies include Niramai, Qure.ai, SigTuple, and Tricog, while international AI companies active in India include Google Health, Microsoft, and Philips [DOC-039].",
+      "citations": [
+        {
+          "doc_id": "DOC-039",
+          "title": "Healthcare AI in India: Opportunities, Challenges, and the ABDM Stack",
+          "relevant_excerpt": "India represents one of the most compelling markets for healthcare AI, driven by acute physician shortages (1 doctor per 1,000 people vs. WHO recommendation of 1:250), a vast uninsured population, and increasing digital infrastructure. The Ayushman Bharat Digital Mission (ABDM) has created 620 million Ayushman Bharat Health Accounts (ABHAs), establishing a national digital health ID system. The ABDM's Health Information Exchange and Consent Manager (HIE-CM) enables consent-based health record sharing, providing the interoperability layer that health AI companies need."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, breaking down the answer into numbered steps with document identification, fact extraction, and synthesis. The reasoning is logical and easy to follow. The AI accurately cites the expected source documents and provides a comprehensive answer to the question.",
+        "total": 10
+      },
+      "elapsed_seconds": 68.84
+    },
+    {
+      "eval_id": "EVAL-010",
+      "question": "How does federated learning address the data privacy challenge in healthcare AI, and what is the largest implementation?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "federated learning data privacy healthcare AI benefits",
+        "federated learning decentralized data storage healthcare applications",
+        "federated learning patient data protection regulatory compliance",
+        "largest federated learning healthcare AI implementation case study",
+        "federated learning data sharing agreements healthcare industry standards",
+        "federated learning AI model updates secure decentralized protocols"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-004",
+        "DOC-018",
+        "DOC-020",
+        "DOC-021",
+        "DOC-028",
+        "DOC-029",
+        "DOC-036",
+        "DOC-039",
+        "DOC-043",
+        "DOC-045",
+        "DOC-047",
+        "DOC-048",
+        "DOC-051",
+        "DOC-056",
+        "DOC-058",
+        "DOC-059"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-036",
+        "DOC-020"
+      ],
+      "ai_answer": "Federated learning addresses the data privacy challenge in healthcare AI by enabling AI model training across multiple institutions without centralizing patient data [DOC-036]. This approach addresses the tension between large, diverse datasets and stringent privacy requirements [DOC-036]. The largest implementation of federated learning in healthcare is the EXAM study, which trained a model across 20 hospitals on 5 continents without sharing any patient data [DOC-036]. The EXAM study demonstrated that federated models can predict oxygen requirements for COVID-19 patients with an AUROC of 0.92, matching centralized training and significantly outperforming any single-site model [DOC-036]. Additionally, the MELLODDY consortium applied federated learning to drug discovery, demonstrating that federated models improved predictive performance by 6-9% across 23 drug-target prediction tasks compared to individual company models [DOC-036].",
+      "chain_of_thought": "Step 1: The question asks how federated learning addresses the data privacy challenge in healthcare AI and what is the largest implementation. Relevant documents include DOC-036, which discusses federated learning in healthcare, and DOC-020, which examines health data privacy in the age of AI. Step 2: DOC-036 provides evidence that federated learning enables AI model training across multiple institutions without centralizing patient data, addressing the tension between large, diverse datasets and stringent privacy requirements. Step 3: The largest implementation of federated learning in healthcare is the EXAM study, which trained a model across 20 hospitals on 5 continents without sharing any patient data.",
+      "citations": [
+        {
+          "doc_id": "DOC-036",
+          "title": "Federated Learning in Healthcare: Privacy-Preserving AI at Scale",
+          "relevant_excerpt": "Federated learning enables AI model training across multiple institutions without centralizing patient data, addressing a core tension in healthcare AI: the need for large, diverse datasets vs. stringent privacy requirements."
+        },
+        {
+          "doc_id": "DOC-020",
+          "title": "Health Data Privacy in the Age of AI: HIPAA, De-identification, and Synthetic Data",
+          "relevant_excerpt": "Federated learning \u2014 training models across institutions without centralizing data. Google Health, NVIDIA Clara, and Owkin are leading federated learning platforms."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, identifying relevant documents, extracting key facts, and synthesizing them to answer the question. The AI accurately cites the expected source documents and provides additional valid citations without penalty. The AI fully addresses all parts of the question with sufficient detail.",
+        "total": 10
+      },
+      "elapsed_seconds": 9.08
+    },
+    {
+      "eval_id": "EVAL-011",
+      "question": "What AI approaches are being used to address the antibiotic resistance crisis?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "AI-powered genomics antibiotic resistance prediction models",
+        "machine learning-based antimicrobial stewardship optimization",
+        "deep learning for novel antibiotic discovery",
+        "natural language processing for antibiotic resistance surveillance",
+        "computer vision for bacterial morphology analysis",
+        "predictive analytics for hospital antibiotic use reduction"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-002",
+        "DOC-005",
+        "DOC-006",
+        "DOC-007",
+        "DOC-009",
+        "DOC-010",
+        "DOC-011",
+        "DOC-014",
+        "DOC-015",
+        "DOC-017",
+        "DOC-020",
+        "DOC-024",
+        "DOC-031",
+        "DOC-032",
+        "DOC-034",
+        "DOC-035",
+        "DOC-040",
+        "DOC-042",
+        "DOC-043",
+        "DOC-045",
+        "DOC-046",
+        "DOC-048",
+        "DOC-049",
+        "DOC-052",
+        "DOC-053",
+        "DOC-054",
+        "DOC-056",
+        "DOC-058"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-052"
+      ],
+      "ai_answer": "AI approaches being used to address the antibiotic resistance crisis include the use of graph neural networks and molecular transformer models to identify novel antibiotics [DOC-052]. Additionally, predictive models like the one presented in DOC-017 can forecast drug shortages 3-6 months in advance using supply chain signals, enabling proactive therapeutic substitution planning and reducing patient care disruptions. Furthermore, AI is being applied to HAI prevention through predictive risk models, surveillance automation, and environmental monitoring [DOC-053]. These approaches can help mitigate the spread of antibiotic-resistant bacteria and improve patient outcomes.",
+      "chain_of_thought": "Step 1: The question asks about AI approaches addressing the antibiotic resistance crisis. Relevant documents include DOC-052, which discusses AI discovering new classes of antibiotics, and DOC-017, which presents a predictive model for drug shortages. Step 2: DOC-052 highlights the use of graph neural networks and molecular transformer models to identify novel antibiotics, while DOC-017 focuses on predicting drug shortages using supply chain signals. Step 3: Both approaches leverage AI to address the antibiotic resistance crisis, but from different angles.",
+      "citations": [
+        {
+          "doc_id": "DOC-052",
+          "title": "Antibiotic Resistance: AI Discovers New Classes of Antibiotics",
+          "relevant_excerpt": "AI is breaking this drought. In 2024, researchers at MIT used a graph neural network trained on 39,000 compounds to identify halicin, a structurally novel antibiotic effective against pan-resistant Acinetobacter baumannii."
+        },
+        {
+          "doc_id": "DOC-017",
+          "title": "Supply Chain AI in Healthcare: Predicting Drug Shortages Before They Happen",
+          "relevant_excerpt": "The model ingests data from FDA drug establishment registrations, import records, generic drug pricing trends, raw material commodity prices, geopolitical risk indices (particularly for APIs sourced from China and India, which supply 80% of US pharmaceutical ingredients), and manufacturer SEC filings."
+        },
+        {
+          "doc_id": "DOC-053",
+          "title": "AI for Hospital-Acquired Infection Prevention",
+          "relevant_excerpt": "AI is being applied to HAI prevention through three main approaches: (1) Predictive risk models: ML models that identify patients at highest risk of developing specific HAIs (catheter-associated UTI, central line-associated bloodstream infection, surgical site infection, C. difficile) from admission data and ongoing clinical trajectory."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear chain of thought with numbered steps, identifying relevant documents and extracting key facts. It then synthesizes these facts to address the question. The AI also cites all expected source documents correctly, demonstrating a high level of citation quality. The answer is mostly correct, with some minor omissions, but overall provides a comprehensive response to the question.",
+        "total": 9
+      },
+      "elapsed_seconds": 7.89
+    },
+    {
+      "eval_id": "EVAL-012",
+      "question": "What is the current state of brain-computer interfaces for speech restoration, and what companies are involved?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "BCI speech restoration clinical trial outcomes",
+        "neural prosthetic speech restoration FDA approval timeline",
+        "brain-computer interface speech restoration companies involved",
+        "speech restoration BCI technology advancements 2025",
+        "neural decoding algorithms for speech restoration accuracy",
+        "companies developing implantable BCI devices for speech restoration"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-001",
+        "DOC-007",
+        "DOC-009",
+        "DOC-010",
+        "DOC-012",
+        "DOC-013",
+        "DOC-018",
+        "DOC-020",
+        "DOC-021",
+        "DOC-022",
+        "DOC-023",
+        "DOC-024",
+        "DOC-025",
+        "DOC-027",
+        "DOC-028",
+        "DOC-029",
+        "DOC-035",
+        "DOC-037",
+        "DOC-038",
+        "DOC-039",
+        "DOC-045",
+        "DOC-050",
+        "DOC-057"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-035"
+      ],
+      "ai_answer": "The current state of brain-computer interfaces (BCIs) for speech restoration is advancing, with systems like BrainVoice (DOC-035) achieving remarkable progress in decoding continuous speech from intracortical recordings. BrainVoice operates in real-time with 300ms latency from thought to synthesized speech and decodes the intended emotional prosody with 74% accuracy. However, the field still faces challenges, including long-term stability of neural recordings, patient-specific calibration, and high surgical costs. Non-invasive BCIs using EEG remain far behind, with word error rates above 40%. In contrast, voice biomarker research (DOC-027) has shown promising results in detecting neurological, respiratory, and psychological conditions through AI analysis of short speech samples. Companies like Winterlight Labs, Vocalis Health, and Kintsugi are commercializing voice biomarker technology for various applications. Additionally, ambient AI scribes (DOC-013) are emerging as a key AI application in healthcare, reducing documentation time by 72% and improving physician satisfaction scores. The companies involved in BCIs for speech restoration include Neuralink, Synchron, and Paradromics, which are developing implantable devices for neural recording and stimulation. The regulatory landscape is evolving, with the FDA's updated 'Predetermined Change Control Plan' (PCCP) guidance (DOC-018) allowing manufacturers to update AI models post-market without new 510(k) submissions. However, remaining regulatory gaps include no clear pathway for LLM-based clinical decision support and limited post-market surveillance infrastructure.",
+      "chain_of_thought": "Step 1: The question asks about the current state of brain-computer interfaces (BCIs) for speech restoration and the companies involved. Relevant documents include DOC-035, which discusses the BrainVoice system, and DOC-027, which reviews the state of voice biomarker research. Step 2: DOC-035 presents BrainVoice, a BCI system that decodes continuous speech from intracortical recordings, achieving a word error rate of 7.2% for a 50,000-word vocabulary. Step 3: DOC-027 reviews voice biomarker research, where AI models analyze short speech samples to detect or monitor disease, with applications in neurology, respiratory medicine, and mental health.",
+      "citations": [
+        {
+          "doc_id": "DOC-035",
+          "title": "Brain-Computer Interfaces Meet AI: Restoring Communication for Paralyzed Patients",
+          "relevant_excerpt": "BrainVoice, a BCI system that decodes continuous speech from intracortical recordings, achieving a word error rate of 7.2% for a 50,000-word vocabulary."
+        },
+        {
+          "doc_id": "DOC-027",
+          "title": "Voice Biomarkers: Can AI Detect Disease from How You Speak?",
+          "relevant_excerpt": "AI models analyze short speech samples to detect or monitor disease, with applications in neurology, respiratory medicine, and mental health."
+        },
+        {
+          "doc_id": "DOC-013",
+          "title": "Ambient AI Scribes: The End of Clinical Documentation Burden?",
+          "relevant_excerpt": "Ambient AI scribes reduce documentation time by 72% and improve physician satisfaction scores."
+        },
+        {
+          "doc_id": "DOC-018",
+          "title": "FDA's Evolving Framework for AI/ML-Based Software as a Medical Device",
+          "relevant_excerpt": "The FDA's updated 'Predetermined Change Control Plan' (PCCP) guidance allows manufacturers to update AI models post-market without new 510(k) submissions."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear chain of thought with numbered steps, identifying relevant documents, extracting key facts, and synthesizing information to answer the question. The AI accurately cites most expected source documents, but misses some key details, such as the exact latency of BrainVoice and the cost range of implantable devices. The AI also introduces additional valid information about voice biomarkers and ambient AI scribes, which is not penalized. Overall, the AI provides a mostly accurate and comprehensive answer, with some minor gaps in detail.",
+        "total": 8
+      },
+      "elapsed_seconds": 6.59
+    },
+    {
+      "eval_id": "EVAL-014",
+      "question": "What are the main barriers to EHR data access for health AI developers?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "EHR data access restrictions for AI model development",
+        "healthcare provider EHR data sharing policies compliance",
+        "patient consent and data anonymization requirements for AI research",
+        "EHR data standardization and interoperability challenges for AI integration",
+        "regulatory frameworks for EHR data access and AI development",
+        "cost and infrastructure barriers to EHR data access for AI startups"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-004",
+        "DOC-012",
+        "DOC-013",
+        "DOC-016",
+        "DOC-018",
+        "DOC-020",
+        "DOC-021",
+        "DOC-026",
+        "DOC-028",
+        "DOC-029",
+        "DOC-033",
+        "DOC-036",
+        "DOC-037",
+        "DOC-038",
+        "DOC-039",
+        "DOC-044",
+        "DOC-045",
+        "DOC-046",
+        "DOC-047",
+        "DOC-048",
+        "DOC-055"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-029"
+      ],
+      "ai_answer": "The main barriers to EHR data access for health AI developers include data quality issues, access barriers, and format fragmentation [DOC-029]. Additionally, the critical challenge of proving return on investment for healthcare AI adoption may be related to EHR data access [DOC-048]. Furthermore, the tension between AI's hunger for data and patient privacy requirements may also be a barrier to EHR data access [DOC-020]. Moreover, the report in DOC-055 highlights the unique challenges in developing AI for pediatric populations, including data scarcity, age-dependent baselines, growth and development, rare diseases, and ethical considerations. The integration of AI tools with existing EHR workflows, PACS systems, and laboratory information systems accounts for 40-60% of first-year costs [DOC-048]. The biggest hidden cost is integration, which may also be a barrier to EHR data access [DOC-048].",
+      "chain_of_thought": "Step 1: The main barriers to EHR data access for health AI developers are identified in DOC-029 as data quality issues, access barriers, and format fragmentation. \nStep 2: DOC-048 highlights the critical challenge of proving return on investment for healthcare AI adoption, which may be related to EHR data access. \nStep 3: The report in DOC-020 discusses the tension between AI's hunger for data and patient privacy requirements, which may also be a barrier to EHR data access.",
+      "citations": [
+        {
+          "doc_id": "DOC-029",
+          "title": "Interoperability Crisis: Why Health AI Struggles with EHR Data",
+          "relevant_excerpt": "A 2025 ONC survey found that only 42% of health AI developers reported 'good' or 'excellent' access to EHR data, with the remainder citing data quality issues (missing fields, inconsistent coding), access barriers (restrictive API rate limits, high data access fees), and format fragmentation (HL7v2, CCD-A, FHIR R4 coexist)."
+        },
+        {
+          "doc_id": "DOC-048",
+          "title": "The Economics of Healthcare AI: ROI Analysis Across Use Cases",
+          "relevant_excerpt": "The biggest hidden cost is integration \u2014 connecting AI tools to existing EHR workflows, PACS systems, and laboratory information systems accounts for 40-60% of first-year costs."
+        },
+        {
+          "doc_id": "DOC-020",
+          "title": "Health Data Privacy in the Age of AI: HIPAA, De-identification, and Synthetic Data",
+          "relevant_excerpt": "The tension between AI's hunger for data and patient privacy requirements is one of healthcare's defining challenges."
+        },
+        {
+          "doc_id": "DOC-055",
+          "title": "Pediatric AI: Unique Challenges in Developing AI for Children's Health",
+          "relevant_excerpt": "Children represent 22% of the US population but account for only 8% of EHR data used in AI training. Pediatric datasets are smaller and more fragmented across children's hospitals."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear chain of thought with numbered steps, accurately identifying key barriers to EHR data access and citing relevant source documents. The AI also addresses the question comprehensively, including additional challenges related to pediatric AI development and the economics of healthcare AI adoption. The only minor discrepancy is the lack of specific data on the percentage of health AI developers with 'good' or 'excellent' EHR data access, but this is not a major omission.",
+        "total": 9
+      },
+      "elapsed_seconds": 8.47
+    },
+    {
+      "eval_id": "EVAL-017",
+      "question": "What is the total healthcare AI market size and how is venture funding distributed across categories?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "global healthcare AI market size projections 2030",
+        "venture capital funding healthcare AI categories distribution",
+        "largest healthcare AI startup funding rounds 2025",
+        "AI healthcare IT infrastructure investment trends",
+        "digital health AI market share analysis 2025-2030",
+        "AI medical device industry funding landscape"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-007",
+        "DOC-014",
+        "DOC-018",
+        "DOC-021",
+        "DOC-025",
+        "DOC-028",
+        "DOC-029",
+        "DOC-037",
+        "DOC-038",
+        "DOC-039",
+        "DOC-043",
+        "DOC-048",
+        "DOC-050",
+        "DOC-055"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-037",
+        "DOC-021"
+      ],
+      "ai_answer": "The total healthcare AI market size is projected at $187 billion by 2030 [DOC-021]. Venture funding is distributed across categories, with AI drug discovery ($2.3B), clinical decision support/ambient AI ($1.8B), medical imaging AI ($0.9B), and operational AI ($0.7B) being the most-funded segments [DOC-037]. The wearable health technology market is projected to reach $186 billion by 2028, with remote patient monitoring (RPM) using AI-analyzed wearable data growing rapidly [DOC-025].",
+      "chain_of_thought": "Step 1: The question asks for the total healthcare AI market size and how venture funding is distributed across categories. Relevant documents include DOC-021, DOC-037, and DOC-025, which discuss market size, funding, and regulatory frameworks. Step 2: DOC-021 provides the global market size for AI in healthcare, projected at $187 billion by 2030. DOC-037 discusses the distribution of venture funding across categories, with AI drug discovery, clinical decision support/ambient AI, medical imaging AI, and operational AI being the most-funded segments. Step 3: DOC-025 provides insights into the wearable health technology market, which is projected to reach $186 billion by 2028, and the growth of remote patient monitoring (RPM) using AI-analyzed wearable data.",
+      "citations": [
+        {
+          "doc_id": "DOC-021",
+          "title": "The Global Race for AI Healthcare Regulation: US, EU, China Compared",
+          "relevant_excerpt": "The global market for AI in healthcare is projected at $187 billion by 2030 (up from $26 billion in 2025), making regulatory harmonization an urgent priority."
+        },
+        {
+          "doc_id": "DOC-037",
+          "title": "Healthcare AI Startup Funding Landscape: 2025 in Review",
+          "relevant_excerpt": "By category, the most-funded healthcare AI segments were: AI drug discovery ($2.3B), clinical decision support/ambient AI ($1.8B), medical imaging AI ($0.9B), and operational AI ($0.7B)."
+        },
+        {
+          "doc_id": "DOC-025",
+          "title": "Continuous Health Monitoring: How Wearables and AI Are Reshaping Preventive Care",
+          "relevant_excerpt": "The convergence of consumer wearables and clinical-grade AI is creating a new paradigm in preventive care. The global wearable health technology market is projected to reach $186 billion by 2028, growing at 18% CAGR."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provided a clear chain of thought with numbered steps, identifying relevant documents, extracting key facts, and synthesizing the information to answer the question. The AI accurately cited two of the expected source documents (DOC-021 and DOC-037) and provided mostly correct information about the healthcare AI market size and venture funding distribution. However, the AI missed some key details, such as the specific funding amounts for the largest 2025 rounds and the emergence of 'AI wrapper' fatigue.",
+        "total": 8
+      },
+      "elapsed_seconds": 7.41
+    },
+    {
+      "eval_id": "EVAL-018",
+      "question": "How do wearable devices use AI for health monitoring, and what regulatory challenges exist?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "wearable device AI-powered heart rate monitoring accuracy",
+        "AI-driven wearable device fall detection system efficacy",
+        "wearable device AI-powered sleep quality analysis",
+        "regulatory framework for AI-enabled wearable devices in Europe",
+        "FDA clearance process for AI-powered wearable devices in the US",
+        "wearable device data security and patient consent regulations"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-012",
+        "DOC-014",
+        "DOC-018",
+        "DOC-020",
+        "DOC-021",
+        "DOC-023",
+        "DOC-025",
+        "DOC-028",
+        "DOC-036",
+        "DOC-038",
+        "DOC-039",
+        "DOC-043",
+        "DOC-046",
+        "DOC-050",
+        "DOC-054",
+        "DOC-057",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-025"
+      ],
+      "ai_answer": "Wearable devices use AI for health monitoring by leveraging machine learning algorithms to analyze data from various sensors, such as heart rate, blood pressure, and glucose levels [DOC-025]. The global wearable health technology market is projected to reach $186 billion by 2028, growing at 18% CAGR [DOC-025]. NVIDIA's Clara platform has become the de facto infrastructure layer for healthcare AI development and deployment, used by over 1,500 healthcare organizations and 700 AI startups [DOC-028]. The regulatory challenges for wearable devices using AI for health monitoring include the need for FDA clearance, CE marking under the Medical Device Regulation (MDR), and compliance with the European Union's AI Act [DOC-021]. The FDA has taken a product-specific approach, regulating AI as Software as a Medical Device (SaMD) through existing 510(k), De Novo, and PMA pathways [DOC-021]. The European Union's AI Act takes a risk-based horizontal approach, classifying healthcare AI as 'high-risk,' requiring conformity assessments, mandatory risk management systems, bias audits, transparency documentation, and human oversight [DOC-021]. The regulatory challenges also include the need for transparency, accountability, and explainability of AI decision-making processes, as well as the risk of bias and errors in AI algorithms [DOC-021]. Direct-to-consumer health AI apps have exploded, with over 350,000 health-related apps available on the Apple App Store and Google Play as of 2025, but the FDA has struggled to regulate this space [DOC-060]. The risks are real: a 2025 Consumer Reports investigation found that 4 of 7 tested AI skin cancer apps missed melanomas in darker skin tones, and 2 of 5 AI symptom checkers failed to recommend emergency care for symptoms consistent with heart attack in women [DOC-060].",
+      "chain_of_thought": "Step 1: Wearable devices use AI for health monitoring by leveraging machine learning algorithms to analyze data from various sensors, such as heart rate, blood pressure, and glucose levels. Relevant documents include DOC-025 and DOC-028, which discuss the convergence of consumer wearables and clinical-grade AI in preventive care and the use of NVIDIA's Clara platform for healthcare AI development and deployment.\nStep 2: The regulatory challenges for wearable devices using AI for health monitoring include the need for FDA clearance, CE marking under the Medical Device Regulation (MDR), and compliance with the European Union's AI Act. Relevant documents include DOC-021, DOC-038, and DOC-060, which discuss the regulatory frameworks for AI in healthcare, the strategies of big tech companies, and the promise and peril of direct-to-consumer health AI apps.\nStep 3: The regulatory challenges also include the need for transparency, accountability, and explainability of AI decision-making processes, as well as the risk of bias and errors in AI algorithms. Relevant documents include DOC-021, DOC-038, and DOC-060, which discuss the regulatory frameworks for AI in healthcare, the strategies of big tech companies, and the promise and peril of direct-to-consumer health AI apps.",
+      "citations": [
+        {
+          "doc_id": "DOC-025",
+          "title": "Continuous Health Monitoring: How Wearables and AI Are Reshaping Preventive Care",
+          "relevant_excerpt": "The convergence of consumer wearables and clinical-grade AI is creating a new paradigm in preventive care."
+        },
+        {
+          "doc_id": "DOC-028",
+          "title": "NVIDIA Clara and the GPU Infrastructure Powering Health AI",
+          "relevant_excerpt": "NVIDIA's Clara platform has become the de facto infrastructure layer for healthcare AI development and deployment."
+        },
+        {
+          "doc_id": "DOC-021",
+          "title": "The Global Race for AI Healthcare Regulation: US, EU, China Compared",
+          "relevant_excerpt": "The FDA has taken a product-specific approach, regulating AI as Software as a Medical Device (SaMD) through existing 510(k), De Novo, and PMA pathways."
+        },
+        {
+          "doc_id": "DOC-060",
+          "title": "The Promise and Peril of Direct-to-Consumer Health AI Apps",
+          "relevant_excerpt": "Direct-to-consumer health AI apps have exploded, with over 350,000 health-related apps available on the Apple App Store and Google Play as of 2025, but the FDA has struggled to regulate this space."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, breaking down the question into three steps and identifying relevant documents for each step. The AI accurately cites most of the expected source documents, including DOC-025, DOC-028, and DOC-021. However, it fails to mention the specific examples of wearable devices using AI for health monitoring, such as Apple Watch Series 11, Samsung Galaxy Ring, and Oura Ring Gen 4, which are key points in the expected answer. Nevertheless, the AI provides a comprehensive overview of the regulatory challenges and the need for transparency, accountability, and explainability of AI decision-making processes.",
+        "total": 8
+      },
+      "elapsed_seconds": 12.15
+    },
+    {
+      "eval_id": "EVAL-019",
+      "question": "What ethical frameworks exist for healthcare AI, and how mature are health systems in implementing them?",
+      "difficulty": "medium",
+      "route": "complex",
+      "sub_queries": [
+        "healthcare AI ethics frameworks comparison",
+        "maturity of AI ethics implementation in hospitals",
+        "AI transparency and explainability in healthcare",
+        "healthcare AI accountability and liability frameworks",
+        "patient data protection and consent in AI-driven healthcare",
+        "AI fairness and bias mitigation in healthcare decision-making"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-012",
+        "DOC-016",
+        "DOC-018",
+        "DOC-019",
+        "DOC-020",
+        "DOC-021",
+        "DOC-028",
+        "DOC-029",
+        "DOC-036",
+        "DOC-038",
+        "DOC-039",
+        "DOC-043",
+        "DOC-047",
+        "DOC-050",
+        "DOC-053",
+        "DOC-055",
+        "DOC-058",
+        "DOC-059"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-047"
+      ],
+      "ai_answer": "The existing ethical frameworks for healthcare AI include the unified 7-principle framework proposed in DOC-047, which emphasizes clinical beneficence, non-maleficence, autonomy preservation, justice and equity, transparency, accountability, and privacy and data stewardship. The maturity of health systems in implementing these frameworks varies, with 72% of US health systems at Level 1 (Ad hoc), 18% at Level 2 (Managed), 8% at Level 3 (Defined), and fewer than 2% at Level 4 (Optimized) [DOC-047]. Globally, healthcare AI regulation is diverging, with the US taking a product-specific approach, the EU adopting a risk-based horizontal approach, and China requiring algorithmic registrations [DOC-021]. In India, the Ayushman Bharat Digital Mission (ABDM) has created a national digital health ID system, enabling consent-based health record sharing and providing the interoperability layer that health AI companies need [DOC-039].",
+      "chain_of_thought": "Step 1: Identify existing ethical frameworks for healthcare AI. Relevant documents include DOC-047, which synthesizes 23 existing frameworks and proposes a unified 7-principle framework for responsible healthcare AI. Step 2: Determine the maturity of health systems in implementing these frameworks. Relevant documents include DOC-047, which proposes a maturity model for healthcare organizations deploying AI, and DOC-021, which discusses the regulatory landscape for healthcare AI globally. Step 3: Analyze the current state of healthcare AI implementation in various countries, including the US, EU, China, and India.",
+      "citations": [
+        {
+          "doc_id": "DOC-047",
+          "title": "Ethical AI in Healthcare: Frameworks for Responsible Development and Deployment",
+          "relevant_excerpt": "This paper synthesizes 23 existing frameworks and proposes a unified 7-principle framework for responsible healthcare AI: (1) Clinical beneficence \u2014 AI must demonstrate measurable patient benefit, not merely technical performance. (2) Non-maleficence \u2014 proactive harm assessment including bias audits, failure mode analysis, and adversarial testing. (3) Autonomy preservation \u2014 patients must be informed about AI involvement in their care and retain the right to opt out. (4) Justice and equity \u2014 performance must be validated across demographic subgroups with mandatory disaggregated reporting. (5) Transparency \u2014 both the model's reasoning (explainability) and the organization's deployment practices (disclosure) must be transparent. (6) Accountability \u2014 clear chains of responsibility from developer to deploying clinician, with liability frameworks for AI-related adverse events. (7) Privacy and data stewardship \u2014 compliance with data protection regulations and ethical data use beyond legal minimums."
+        },
+        {
+          "doc_id": "DOC-021",
+          "title": "The Global Race for AI Healthcare Regulation: US, EU, China Compared",
+          "relevant_excerpt": "Healthcare AI regulation is diverging globally, creating challenges for companies operating across markets. In the United States, the FDA has taken a product-specific approach, regulating AI as Software as a Medical Device (SaMD) through existing 510(k), De Novo, and PMA pathways. As of 2025, over 950 AI devices have been cleared."
+        },
+        {
+          "doc_id": "DOC-039",
+          "title": "Healthcare AI in India: Opportunities, Challenges, and the ABDM Stack",
+          "relevant_excerpt": "India represents one of the most compelling markets for healthcare AI, driven by acute physician shortages (1 doctor per 1,000 people vs. WHO recommendation of 1:250), a vast uninsured population, and increasing digital infrastructure. The Ayushman Bharat Digital Mission (ABDM) has created 620 million Ayushman Bharat Health Accounts (ABHAs), establishing a national digital health ID system."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, identifying existing ethical frameworks for healthcare AI, determining the maturity of health systems, and analyzing the current state of healthcare AI implementation in various countries. The AI accurately cites the expected source documents and provides a comprehensive answer to the question.",
+        "total": 10
+      },
+      "elapsed_seconds": 9.27
+    },
+    {
+      "eval_id": "EVAL-001",
+      "question": "What was the sensitivity and specificity of the AI system for diabetic retinopathy screening, and how did it compare to ophthalmologists?",
+      "difficulty": "easy",
+      "route": "complex",
+      "sub_queries": [
+        "AI diabetic retinopathy screening sensitivity rates",
+        "AI diabetic retinopathy screening specificity rates",
+        "ophthalmologist diabetic retinopathy screening sensitivity rates",
+        "ophthalmologist diabetic retinopathy screening specificity rates",
+        "AI vs ophthalmologist diabetic retinopathy screening accuracy comparison",
+        "AI diabetic retinopathy screening area under the receiver operating characteristic curve (AUC)"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-001",
+        "DOC-003",
+        "DOC-005",
+        "DOC-011",
+        "DOC-012",
+        "DOC-018",
+        "DOC-025",
+        "DOC-026",
+        "DOC-027",
+        "DOC-039",
+        "DOC-042",
+        "DOC-046",
+        "DOC-049",
+        "DOC-050",
+        "DOC-053",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-001"
+      ],
+      "ai_answer": "The AI system for diabetic retinopathy screening achieved 97.1% sensitivity and 95.4% specificity for referable DR [DOC-001]. This performance outperformed the average ophthalmologist panel (93.8% sensitivity, 94.1% specificity) [DOC-001]. The AI system's sensitivity and specificity for DR screening are higher than those reported for other eye diseases, such as glaucoma (AUROC 0.94 for progression detection) and age-related macular degeneration (80% sensitivity for predicting conversion from dry to wet AMD) [DOC-049]. However, the AI system's performance may degrade in certain populations, such as those with high myopia (sensitivity dropped to 88.3%) [DOC-001].",
+      "chain_of_thought": "Step 1: The question asks about the sensitivity and specificity of the AI system for diabetic retinopathy screening and how it compares to ophthalmologists. Relevant documents include DOC-001, which discusses the performance of a CNN model for DR screening, and DOC-049, which highlights the advancements in ophthalmic AI beyond DR screening. Step 2: DOC-001 provides specific metrics for the AI system's performance, including 97.1% sensitivity and 95.4% specificity for referable DR. Step 3: DOC-049 mentions the performance of AI models for other eye diseases, such as glaucoma and age-related macular degeneration, but does not provide direct comparisons to ophthalmologists.",
+      "citations": [
+        {
+          "doc_id": "DOC-001",
+          "title": "Deep Learning for Automated Diabetic Retinopathy Screening at Scale",
+          "relevant_excerpt": "The model achieved 97.1% sensitivity and 95.4% specificity for referable DR on a held-out test set of 42,000 images, outperforming the average ophthalmologist panel (93.8% sensitivity, 94.1% specificity)."
+        },
+        {
+          "doc_id": "DOC-049",
+          "title": "Ophthalmology AI: Beyond Diabetic Retinopathy to Multimodal Eye Disease Screening",
+          "relevant_excerpt": "For glaucoma, AI models analyzing optical coherence tomography (OCT) and visual fields can detect glaucomatous progression 18 months earlier than clinical assessment (AUROC 0.94 for progression detection). For age-related macular degeneration (AMD), DeepMind/Moorfields' model predicts conversion from dry to wet AMD 6 months in advance with 80% sensitivity, enabling earlier anti-VEGF treatment."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI system's performance for diabetic retinopathy screening is accurately reported, with sensitivity and specificity metrics provided. The comparison to ophthalmologists is also correct. The AI system's performance on other eye diseases is mentioned, but this is not a key aspect of the question. The chain of thought is clear and detailed, with numbered steps showing document identification, fact extraction, and synthesis. The AI system fully addresses all parts of the question with sufficient detail.",
+        "total": 9
+      },
+      "elapsed_seconds": 7.58
+    },
+    {
+      "eval_id": "EVAL-002",
+      "question": "How many AI/ML-enabled medical devices has the FDA cleared or approved as of 2025, and which medical specialty dominates?",
+      "difficulty": "easy",
+      "route": "simple",
+      "sub_queries": [
+        "How many AI/ML-enabled medical devices has the FDA cleared or approved as of 2025, and which medical specialty dominates?"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-018",
+        "DOC-021",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-018"
+      ],
+      "ai_answer": "The FDA has cleared or approved over 950 AI/ML-enabled medical devices as of October 2025 [DOC-018]. Radiology accounts for 76% of approvals, followed by cardiology (11%) and ophthalmology (5%) [DOC-018]. The FDA's product-specific approach to regulating AI as Software as a Medical Device (SaMD) through existing 510(k), De Novo, and PMA pathways has led to the clearance of over 950 AI devices as of 2025 [DOC-021].",
+      "chain_of_thought": "Step 1: The question asks for the number of AI/ML-enabled medical devices cleared or approved by the FDA as of 2025 and the medical specialty that dominates. Relevant documents include DOC-018, which discusses the FDA's clearance of over 950 AI/ML-enabled medical devices as of October 2025, and DOC-021, which mentions the FDA's product-specific approach to regulating AI as Software as a Medical Device (SaMD) through existing 510(k), De Novo, and PMA pathways. Step 2: DOC-018 provides specific information on the number of AI/ML-enabled medical devices cleared or approved by the FDA as of 2025, while DOC-021 provides context on the FDA's regulatory approach. Step 3: DOC-018 also mentions the medical specialties that dominate the approvals, including radiology, cardiology, and ophthalmology.",
+      "citations": [
+        {
+          "doc_id": "DOC-018",
+          "title": "FDA's Evolving Framework for AI/ML-Based Software as a Medical Device",
+          "relevant_excerpt": "The FDA has cleared or approved over 950 AI/ML-enabled medical devices as of October 2025, up from 692 at the end of 2023 \u2014 a 37% increase. Radiology accounts for 76% of approvals, followed by cardiology (11%) and ophthalmology (5%)."
+        },
+        {
+          "doc_id": "DOC-021",
+          "title": "The Global Race for AI Healthcare Regulation: US, EU, China Compared",
+          "relevant_excerpt": "As of 2025, over 950 AI devices have been cleared."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 3,
+        "citation_quality": 3,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear chain of thought with numbered steps, identifying relevant documents (DOC-018 and DOC-021), extracting key facts, and synthesizing the information to answer the question. The AI accurately cites the expected source documents and provides a detailed explanation of the FDA's regulatory approach and the medical specialties that dominate the approvals.",
+        "total": 10
+      },
+      "elapsed_seconds": 3.17
+    },
+    {
+      "eval_id": "EVAL-009",
+      "question": "What are the key safety concerns with using LLMs in clinical practice?",
+      "difficulty": "easy",
+      "route": "complex",
+      "sub_queries": [
+        "LLM clinical decision support system errors and liability",
+        "AI patient data privacy and security risks",
+        "LLM medical knowledge accuracy and outdated information",
+        "AI clinician burnout and workload impact",
+        "LLM patient trust and adherence to recommendations",
+        "AI regulatory compliance and licensure requirements"
+      ],
+      "source_doc_ids_retrieved": [
+        "DOC-003",
+        "DOC-010",
+        "DOC-012",
+        "DOC-013",
+        "DOC-016",
+        "DOC-018",
+        "DOC-020",
+        "DOC-021",
+        "DOC-022",
+        "DOC-026",
+        "DOC-027",
+        "DOC-029",
+        "DOC-030",
+        "DOC-036",
+        "DOC-041",
+        "DOC-043",
+        "DOC-044",
+        "DOC-045",
+        "DOC-046",
+        "DOC-047",
+        "DOC-048",
+        "DOC-050",
+        "DOC-051",
+        "DOC-057",
+        "DOC-059",
+        "DOC-060"
+      ],
+      "source_doc_ids_expected": [
+        "DOC-010"
+      ],
+      "ai_answer": "The key safety concerns with using LLMs in clinical practice include hallucination rates, fabricated drug dosages, and non-existent drug interactions [DOC-010]. The regulatory landscape for AI in healthcare is complex, with the FDA taking a product-specific approach and the EU adopting a risk-based horizontal approach [DOC-021]. Additionally, the use of federated learning and AI in emergency departments may also impact the safety and efficacy of LLMs in clinical practice [DOC-036, DOC-043]. Furthermore, the integration of LLMs into clinical workflows may lead to alert fatigue, workflow integration challenges, and job anxiety among nurses [DOC-059].",
+      "chain_of_thought": "Step 1: The key safety concerns with using LLMs in clinical practice are identified in DOC-010, which reviews the evidence base for LLMs in clinical tasks and highlights critical safety concerns such as hallucination rates and fabricated drug dosages. \nStep 2: DOC-021 discusses the regulatory landscape for AI in healthcare, including the FDA's product-specific approach and the EU's risk-based horizontal approach, which may impact the safety and efficacy of LLMs in clinical practice.\nStep 3: DOC-036 and DOC-043 discuss the use of federated learning and AI in emergency departments, respectively, which may also impact the safety and efficacy of LLMs in clinical practice.",
+      "citations": [
+        {
+          "doc_id": "DOC-010",
+          "title": "Large Language Models in Clinical Practice: Opportunities and Guardrails",
+          "relevant_excerpt": "hallucination rates in medical contexts range from 3-12% depending on the model and task, with fabricated drug dosages and non-existent drug interactions being the most dangerous failure modes."
+        },
+        {
+          "doc_id": "DOC-021",
+          "title": "The Global Race for AI Healthcare Regulation: US, EU, China Compared",
+          "relevant_excerpt": "Healthcare AI regulation is diverging globally, creating challenges for companies operating across markets."
+        },
+        {
+          "doc_id": "DOC-036",
+          "title": "Federated Learning in Healthcare: Privacy-Preserving AI at Scale",
+          "relevant_excerpt": "Federated learning enables AI model training across multiple institutions without centralizing patient data, addressing a core tension in healthcare AI: the need for large, diverse datasets vs. stringent privacy requirements."
+        },
+        {
+          "doc_id": "DOC-043",
+          "title": "Emergency Department AI: Triage, Flow Optimization, and Decision Support",
+          "relevant_excerpt": "AI applications in the ED fall into three categories: AI Triage, Patient Flow, and Clinical Decision Support."
+        },
+        {
+          "doc_id": "DOC-059",
+          "title": "AI and the Nursing Profession: Documentation, Monitoring, and Workforce Impact",
+          "relevant_excerpt": "Nurses, who represent the largest healthcare workforce segment, are both key beneficiaries and stakeholders in healthcare AI deployment."
+        }
+      ],
+      "confidence_score": 1.0,
+      "flagged_claims": [],
+      "scores": {
+        "factual_accuracy": 2,
+        "citation_quality": 2,
+        "reasoning_trace": 2,
+        "completeness": 2,
+        "reasoning": "The AI provides a clear and detailed chain of thought, identifying key safety concerns with LLMs in clinical practice and citing relevant source documents. However, it does not fully capture the consensus on LLMs being 'copilots' with mandatory human review, which is a crucial aspect of the expected answer. Nevertheless, the AI's response is mostly correct and provides a comprehensive overview of the topic.",
+        "total": 8
+      },
+      "elapsed_seconds": 69.21
+    }
+  ]
+}
