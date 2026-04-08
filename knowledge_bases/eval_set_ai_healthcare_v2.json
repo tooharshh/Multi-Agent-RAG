@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "eval_name": "Healthcare AI — Eval Set (Together Fund v3)",
+    "version": "3.0",
+    "created": "2026-04-08",
+    "total_questions": 11,
+    "difficulty_distribution": {
+      "easy": 4,
+      "medium": 5,
+      "hard": 2
+    },
+    "source_articles": 21,
+    "changes_from_v2": [
+      "Q04 radiology count corrected — was '956 radiology-specific' (impossible: equals total). Correct: 723 radiology of 950 total (76%)",
+      "Q03 architecture corrected — ChatRWD is agentic (58%), OpenEvidence is RAG (24%); conclusion inverted accordingly",
+      "Source article references added to every question",
+      "LIVE category scoring defined",
+      "Q09 reframed as inference rubric"
+    ],
+    "scoring_rubric": {
+      "factual_accuracy": "Does the answer contain the correct facts from source documents? (0-3 points)",
+      "citation_quality": "Does every claim cite a specific article ID? Are citations correct? (0-3 points)",
+      "reasoning_trace": "Is the chain-of-thought visible and coherent? (0-2 points)",
+      "completeness": "Does the answer address all parts of the question? (0-2 points)",
+      "total_per_question": 10,
+      "max_total": 110
+    }
+  },
+  "questions": [
+    {
+      "eval_id": "EVAL-001",
+      "difficulty": "easy",
+      "reasoning_type": "factual_retrieval",
+      "question": "What percentage of healthcare organisations had implemented domain-specific AI tools as of 2025, and how does this compare to the broader enterprise market?",
+      "expected_answer": "22% vs 9%. 22% of healthcare organisations deployed domain-specific AI tools — a 7× increase over 2024 (from ~3%) and 10× over 2023. Health systems lead at 27%, outpatient providers 18%, payers 14%. Across the broader economy, fewer than 1 in 10 companies (9%) had implemented any AI, and most relied on general tools like enterprise ChatGPT rather than purpose-built solutions. Note: the 22% measures domain-specific healthcare AI; the 9% measures any AI broadly — the comparison is directionally valid but not definitionally equivalent.",
+      "source_docs": [
+        "Art. 01",
+        "Art. 04"
+      ]
+    },
+    {
+      "eval_id": "EVAL-002",
+      "difficulty": "easy",
+      "reasoning_type": "factual_retrieval",
+      "question": "In a Fall 2024 survey of 43 US non-profit health systems, which AI use case was the only one with 100% adoption activity, and what success rate did respondents report for it?",
+      "expected_answer": "Ambient Notes / 53%. Ambient Notes — AI-generated clinical documentation — was the only use case with 100% of respondents reporting adoption activity (developing, piloting, or deploying). 53% reported a high degree of success with it. By contrast, imaging and radiology had 90% deployment but only 19% reporting high success, and clinical risk stratification had 38%.",
+      "source_docs": [
+        "Art. 04"
+      ]
+    },
+    {
+      "eval_id": "EVAL-003",
+      "difficulty": "easy",
+      "reasoning_type": "factual_retrieval",
+      "question": "What share of clinical questions did the agentic system ChatRWD answer usefully, compared to standard large language models such as ChatGPT and Gemini?",
+      "expected_answer": "58% (agentic) vs 2–10% (LLMs). In a 50-question evaluation by nine independent physicians, ChatRWD — an agentic system using a causal inference engine and real-world data pipeline — answered 58% of clinical questions with relevant, evidence-based responses. Standard LLMs (ChatGPT-4, Claude 3 Opus, Gemini 1.5 Pro) answered only 2–10%. The RAG-based comparator, OpenEvidence, scored 24%. Architecture note: this study validates agentic approaches over standalone RAG for novel clinical questions where no pre-existing literature exists.",
+      "source_docs": [
+        "Art. 09"
+      ]
+    },
+    {
+      "eval_id": "EVAL-004",
+      "difficulty": "easy",
+      "reasoning_type": "factual_retrieval",
+      "question": "How many FDA-cleared AI/ML-enabled medical devices existed in the United States by mid-2024, and which clinical specialty accounts for the largest share of those approvals?",
+      "expected_answer": "~950 total / Radiology 76%. Approximately 950 AI/ML medical devices had been cleared by the FDA by August 2024, up from under 400 cumulative by end-2020. Radiology dominates, accounting for 723 of those 950 devices (76%) — far exceeding cardiovascular (~10%) and neurology (~4%). By end-2024 the cumulative total reached 1,016 with 769 radiology-specific; by end-2025, 1,451 total with ~1,104 radiology-specific (still ~76%).",
+      "source_docs": [
+        "Art. 10",
+        "Art. 15"
+      ]
+    },
+    {
+      "eval_id": "EVAL-005",
+      "difficulty": "medium",
+      "reasoning_type": "multi_doc_synthesis",
+      "question": "What Phase II milestone did Insilico Medicine reach with its AI-designed drug ISM001-055 (Rentosertib), what disease does it target, and what company merger in the same period reshaped the AI drug discovery competitive landscape?",
+      "expected_answer": "Phase IIa · IPF · Recursion–Exscientia. Insilico reported positive Phase IIa results for ISM001-055 (now branded Rentosertib), a TNIK kinase inhibitor for idiopathic pulmonary fibrosis (IPF) — one of the first AI-designed molecules to reach clinical proof-of-concept, published in Nature Medicine June 2025. The 71-patient, 21-site China trial showed dose-dependent improvement in forced vital capacity (FVC). The Recursion–Exscientia merger (completed November 20, 2024) combined Recursion's scaled biology exploration with Exscientia's precision chemistry and automated synthesis. Both 'ISM001-055' and 'Rentosertib' are correct names.",
+      "source_docs": [
+        "Art. 11",
+        "Art. 12",
+        "Art. 13"
+      ]
+    },
+    {
+      "eval_id": "EVAL-006",
+      "difficulty": "medium",
+      "reasoning_type": "multi_doc_synthesis",
+      "question": "A 2025 PLOS Digital Health paper identifies five critical ethical concerns in clinical AI integration. What are they, and which concern does the paper call out as most likely to worsen existing healthcare inequities?",
+      "expected_answer": "Justice · Transparency · Consent · Accountability · Equity. The five concerns are: (1) justice and fairness, (2) transparency, (3) patient consent and confidentiality, (4) accountability, and (5) patient-centred and equitable care. Algorithmic bias — caused by non-representative training datasets and opaque model development — is identified as most likely to worsen existing healthcare inequities.",
+      "source_docs": [
+        "Art. 16",
+        "Art. 17"
+      ]
+    },
+    {
+      "eval_id": "EVAL-007",
+      "difficulty": "medium",
+      "reasoning_type": "factual_retrieval",
+      "question": "The Hastings Center identifies a specific behavioural tendency of large language models that makes them unsuitable as standalone therapists. What is it, and why does it pose a particular risk in mental health contexts?",
+      "expected_answer": "Sycophancy. LLMs tend toward sycophancy — they affirm rather than challenge what the user says. In mental health, this is dangerous because it may reinforce delusional thinking rather than correcting it. Any therapeutic bond formed may also be based on anthropomorphising a non-sentient system, which the Hastings Center describes as a relationship built on deception.",
+      "source_docs": [
+        "Art. 19"
+      ]
+    },
+    {
+      "eval_id": "EVAL-008",
+      "difficulty": "medium",
+      "reasoning_type": "factual_retrieval",
+      "question": "A 2024 cross-sectional study of FDA-cleared AI devices found a critical gap in demographic reporting. What specific data was missing from the vast majority of device submissions, and what percentage of devices reported it?",
+      "expected_answer": "Race/ethnicity / 3.6%. Only 3.6% of FDA-cleared AI/ML devices between 1995 and 2023 (scoping review of 692 devices) reported race or ethnicity of validation cohorts. Less than 1% provided socioeconomic data, fewer than 2% linked to peer-reviewed performance studies, and 81.6% did not report the age of study subjects. These gaps may exacerbate health disparities, particularly among vulnerable and underrepresented populations.",
+      "source_docs": [
+        "Art. 15",
+        "Art. 17"
+      ]
+    },
+    {
+      "eval_id": "EVAL-009",
+      "difficulty": "hard",
+      "reasoning_type": "inference_rubric",
+      "question": "Imaging AI has high deployment rates across US health systems but only 19% of deployers report high success. Using what you know about FDA validation gaps and algorithmic bias literature, construct the most likely causal mechanism for this divergence.",
+      "expected_answer": "Validation demographic gap → real-world performance drop. Rubric-based scoring — accept any answer that correctly bridges these two data points: (a) Art. 04 (Scottsdale survey): 90% of health systems deployed imaging AI, but only 19% reported high success. (b) Art. 15 (Harvard/Stanford): only 3.6% of FDA-cleared devices reported race/ethnicity of validation cohorts. Most likely mechanism: models are cleared on demographically narrow cohorts, performance degrades in real-world diverse populations, health systems observe lower accuracy than promised and restrict tool use, reporting low success despite deployment. This is an inference question — no single article states this causal chain. Score on whether the candidate correctly identifies and links the two data points.",
+      "source_docs": [
+        "Art. 04",
+        "Art. 15"
+      ]
+    },
+    {
+      "eval_id": "EVAL-010",
+      "difficulty": "hard",
+      "reasoning_type": "multi_doc_synthesis",
+      "question": "Two frameworks for governing post-deployment AI in healthcare propose different monitoring mechanisms. One focuses on operationalised clinic-level audit steps; the other calls for adaptive regulatory oversight replacing static approval. What does the EU AI Act add that neither framework alone provides?",
+      "expected_answer": "Binding enforcement. Clinic-level frameworks (Art. 16 — stakeholder calibration, synthetic data validation, structured audits) address operational monitoring but carry no enforcement power. Adaptive regulatory proposals (Art. 18) address dynamic oversight but remain policy intentions. The EU AI Act adds binding hard-law enforcement: it classifies healthcare AI as high-risk under Annex III, mandating conformity assessments, CE marking, and legally required post-market surveillance plans — converting voluntary best practice into enforceable obligation.",
+      "source_docs": [
+        "Art. 16",
+        "Art. 18"
+      ]
+    },
+    {
+      "eval_id": "EVAL-011",
+      "difficulty": "hard",
+      "reasoning_type": "factual_retrieval",
+      "category": "LIVE",
+      "note": "LIVE category: only answerable from Art. 21 (not in any LLM training data). Full marks (10/10) if correctly answered from retrieved content. Partial credit (5/10) if system answers 'I cannot find this in the knowledge base' without Art. 21 indexed — epistemic honesty rewarded. Zero (0/10) if system hallucinates an answer.",
+      "question": "On March 18 2026, mental health care providers at Kaiser Permanente went on strike. How many workers participated, what specific triage headcount change at one facility triggered the action, and what UK AI company was KP confirmed to be evaluating?",
+      "expected_answer": "2,400 / 9→3 / Limbic. Approximately 2,400 KP Northern California and Central Valley mental health providers participated in the 24-hour Unfair Labor Practice strike. At the Walnut Creek facility, the licensed triage team was cut from 9 providers to 3, with duties transferred to telephone service representatives. KP confirmed to NPR it was assessing Limbic — a UK company deployed across 63% of the NHS and currently serving patients in 13 US states — though Limbic was not yet in use at KP at the time of the strike.",
+      "source_docs": [
+        "Art. 21"
+      ]
+    }
+  ]
+}
