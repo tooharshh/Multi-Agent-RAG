@@ -21,7 +21,7 @@ from agents.query_decomposer import QueryDecomposerAgent
 from agents.reasoner import ReasonerAgent
 from agents.critic import CriticAgent
 
-load_dotenv()
+load_dotenv(override=True)
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 
 llm_judge = ChatCerebras(
@@ -30,7 +30,7 @@ llm_judge = ChatCerebras(
     temperature=0,
 )
 
-EVAL_SET_PATH = "./eval_set_ai_healthcare.json"
+EVAL_SET_PATH = "./knowledge_bases/eval_set_ai_healthcare.json"
 RESULTS_PATH = "./eval/eval_results.json"
 
 JUDGE_SYSTEM_PROMPT = """You are an evaluation judge. Score the AI answer against the expected answer.
@@ -74,7 +74,18 @@ def _parse_json_response(text: str) -> dict:
 def load_eval_set() -> list[dict]:
     with open(EVAL_SET_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
-    return data["questions"]
+    questions = data["questions"]
+    # Normalize source_docs from "Art. XX" to "DOC-0XX" format for compatibility
+    for q in questions:
+        normalized = []
+        for s in q.get("source_docs", []):
+            if s.startswith("Art. "):
+                num = s.replace("Art. ", "").zfill(3)
+                normalized.append(f"DOC-{num}")
+            else:
+                normalized.append(s)
+        q["source_docs"] = normalized
+    return questions
 
 
 def judge_answer(question: str, expected: str, source_docs: list, ai_answer: str, citations: list, chain_of_thought: str = "") -> dict:
@@ -175,6 +186,14 @@ def run_eval():
             # Agent 3
             critic_output = agent3.run(question, reasoner_output, context_package)
 
+            # Auto-escalation: if simple route gets low confidence, re-run with complex
+            if (context_package["route"] == "simple"
+                    and critic_output["confidence_score"] < 0.90):
+                print(f"  [Escalation] Low confidence ({critic_output['confidence_score']:.2f}) on simple route — re-running as complex")
+                context_package["route"] = "complex"
+                reasoner_output = agent2.run(question, context_package)
+                critic_output = agent3.run(question, reasoner_output, context_package)
+
             elapsed = time.time() - start
             ai_answer = critic_output["verified_answer"]
             citations = reasoner_output.get("citations", [])
@@ -217,9 +236,9 @@ def run_eval():
         results.append(result)
         print()
 
-        # Small delay between questions to reduce API rate limiting
+        # Delay between questions to reduce API rate limiting
         if i < len(questions) - 1:
-            time.sleep(2)
+            time.sleep(5)
 
     # Summary
     print("=" * 70)
