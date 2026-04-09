@@ -118,7 +118,7 @@ def render_answer_with_badges(answer: str, citations: list) -> str:
 # ── Main UI ──────────────────────────────────────────────────────────────────
 
 st.title("🏥 AI in Healthcare — Multi-Agent RAG")
-st.caption("Ask questions about AI in Healthcare. Every answer is grounded in the 60-document knowledge base with citations.")
+st.caption("Ask questions about AI in Healthcare. Every answer is grounded in the 21-article knowledge base with citations.")
 
 # Auto-load index on startup
 if not st.session_state.indexer_loaded:
@@ -224,6 +224,23 @@ if prompt := st.chat_input("Ask about AI in Healthcare..."):
                         context_package,
                     )
                     display_answer = critic_output["verified_answer"]
+
+                    # Auto-escalation: if simple route gets low confidence, re-run with complex
+                    if (context_package.get("route") == "simple"
+                            and critic_output["confidence_score"] < 0.90):
+                        with st.spinner("⬆️ Escalating to complex model..."):
+                            context_package["route"] = "complex"
+                            reasoner_output = st.session_state.agent2.run(
+                                prompt,
+                                context_package,
+                                st.session_state.conversation_history,
+                            )
+                            critic_output = st.session_state.agent3.run(
+                                prompt,
+                                reasoner_output,
+                                context_package,
+                            )
+                            display_answer = critic_output["verified_answer"]
 
             # Render
             rendered = render_answer_with_badges(display_answer, reasoner_output.get("citations", []))
