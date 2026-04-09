@@ -1,9 +1,39 @@
+# Python
 .venv/
-.env
-chroma_db/
-bm25_index.pkl
 __pycache__/
 *.pyc
 *.pyo
-eval/eval_results.json
-cerebras-api.md
+
+# Environment
+.env
+
+# Generated indexes (rebuilt on first run)
+chroma_db/
+bm25_index.pkl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Eval results (auto-generated)
+eval/eval_results*.json
+eval_run.log
+
+# Debug / analysis scripts (not part of core system)
+analyze_*.py
+check_*.py
+compare_*.py
+compare3.py
+debug_*.py
+diagnose_*.py
+test_fetch.py
+test_retrieval*.py
+hallucination_check.py
+verify_sub10.py
+
+# Duplicate directory
+Multi-Agent RAG/
+
+# Node
+frontend/node_modules/
+frontend/.next/

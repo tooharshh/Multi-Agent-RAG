@@ -120,6 +120,7 @@ class HybridRetriever:
             scored.append({
                 "text": doc.page_content,
                 "doc_id": doc.metadata["doc_id"],
+                "article_number": doc.metadata.get("article_number", doc.metadata["doc_id"].replace("DOC-", "")),
                 "title": doc.metadata["title"],
                 "source": doc.metadata["source"],
                 "url": doc.metadata["url"],
