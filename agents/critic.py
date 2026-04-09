@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from langchain_cerebras import ChatCerebras
 from langchain_core.messages import SystemMessage, HumanMessage
 
-load_dotenv()
+load_dotenv(override=True)
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 
 llm_fast = ChatCerebras(
@@ -59,10 +59,76 @@ def _extract_cited_sentences(answer: str) -> list[dict]:
     return results
 
 
+def _extract_stats_from_text(text: str) -> set[str]:
+    """Extract all numbers, percentages, and statistics from text."""
+    stats = set()
+    # Percentages: 74.4%, 76%, 3.6%, ~78%
+    for m in re.findall(r'~?(\d+(?:[\.,]\d+)?)\s*%', text):
+        stats.add(m.replace(',', '.') + '%')
+    # Numbers with commas: 1,016  2,400  950
+    for m in re.findall(r'\b(\d{1,3}(?:,\d{3})+)\b', text):
+        stats.add(m)
+        stats.add(m.replace(',', ''))  # also store without commas
+    # Plain significant numbers (3+ digits or contextually important)
+    for m in re.findall(r'\b(\d{3,})\b', text):
+        stats.add(m)
+    # Dollar amounts: $2.1B, $500M
+    for m in re.findall(r'\$[\d,.]+[BMK]?', text):
+        stats.add(m)
+    return stats
+
+
+def _verify_stats_against_source(answer: str, chunks: list[dict]) -> list[str]:
+    """
+    For each statistic in the answer that has a [DOC-XXX] citation,
+    verify that the cited document's chunks actually contain that number.
+    Returns list of mismatch warnings.
+    """
+    mismatches = []
+    # Build a map: doc_id -> all text from that doc's chunks
+    doc_texts = {}
+    for chunk in chunks:
+        did = chunk["doc_id"]
+        if did not in doc_texts:
+            doc_texts[did] = ""
+        doc_texts[did] += " " + chunk["text"]
+
+    # Split answer into sentences and find stats + their citations
+    sentences = re.split(r'(?<=[.!?])\s+', answer)
+    for sentence in sentences:
+        citations_in_sentence = re.findall(r'\[DOC-(\d{3})\]', sentence)
+        if not citations_in_sentence:
+            continue
+        # Remove citation markers to get clean text
+        clean = re.sub(r'\[DOC-\d{3}\]', '', sentence).strip()
+        stats_in_sentence = _extract_stats_from_text(clean)
+        if not stats_in_sentence:
+            continue
+
+        for doc_num in citations_in_sentence:
+            doc_id = f"DOC-{doc_num}"
+            doc_text = doc_texts.get(doc_id, "")
+            if not doc_text:
+                continue
+            doc_text_lower = doc_text.lower()
+            for stat in stats_in_sentence:
+                # Check if the stat appears in the cited doc's chunks
+                if stat.lower() not in doc_text_lower:
+                    # Also check without % sign in case formatting differs
+                    bare = stat.replace('%', '')
+                    if bare not in doc_text_lower:
+                        mismatches.append(
+                            f"Stat '{stat}' in claim citing {doc_id} not found in {doc_id} chunks: "
+                            f"'{clean[:100]}...'"
+                        )
+    return mismatches
+
+
 class CriticAgent:
     """
     Agent 3: Verifies each citation in the answer against retrieved context.
     Flags unsupported claims and computes confidence score.
+    Includes stat-level verification to catch number misattribution.
     """
 
     def __init__(self, retriever=None):
@@ -169,6 +235,17 @@ class CriticAgent:
 
         # Compute confidence
         confidence = supported_claims / total_claims if total_claims > 0 else 1.0
+
+        # Step 3: Stat-level verification — check numbers are in the right source doc
+        stat_mismatches = _verify_stats_against_source(answer, retrieved_chunks)
+        if stat_mismatches:
+            print(f"[Critic] Stat mismatches found: {len(stat_mismatches)}")
+            for mm in stat_mismatches:
+                print(f"  [Critic] {mm}")
+            flagged_claims.extend(stat_mismatches)
+            # Reduce confidence proportionally
+            mismatch_penalty = len(stat_mismatches) / max(total_claims, 1)
+            confidence = max(0.0, confidence - mismatch_penalty)
 
         # Mark unsupported citations in the answer
         verified_answer = answer
