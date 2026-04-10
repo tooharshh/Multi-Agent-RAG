@@ -68,7 +68,6 @@ def _extract_stats_from_text(text: str) -> set[str]:
     # Numbers with commas: 1,016  2,400  950
     for m in re.findall(r'\b(\d{1,3}(?:,\d{3})+)\b', text):
         stats.add(m)
-        stats.add(m.replace(',', ''))  # also store without commas
     # Plain significant numbers (3+ digits or contextually important)
     for m in re.findall(r'\b(\d{3,})\b', text):
         stats.add(m)
@@ -78,13 +77,14 @@ def _extract_stats_from_text(text: str) -> set[str]:
     return stats
 
 
-def _verify_stats_against_source(answer: str, chunks: list[dict]) -> list[str]:
+def _verify_stats_against_source(answer: str, chunks: list[dict], question: str = "") -> list[str]:
     """
     For each statistic in the answer that has a [DOC-XXX] citation,
     verify that the cited document's chunks actually contain that number.
     Returns list of mismatch warnings.
     """
     mismatches = []
+    question_stats = _extract_stats_from_text(question) if question else set()
     # Build a map: doc_id -> all text from that doc's chunks
     doc_texts = {}
     for chunk in chunks:
@@ -100,7 +100,7 @@ def _verify_stats_against_source(answer: str, chunks: list[dict]) -> list[str]:
         if not citations_in_sentence:
             continue
         # Remove citation markers to get clean text
-        clean = re.sub(r'\[DOC-\d{3}\]', '', sentence).strip()
+        clean = re.sub(r'\[?DOC-\d{3}\]?', '', sentence).strip()
         stats_in_sentence = _extract_stats_from_text(clean)
         if not stats_in_sentence:
             continue
@@ -112,14 +112,19 @@ def _verify_stats_against_source(answer: str, chunks: list[dict]) -> list[str]:
                 continue
             doc_text_lower = doc_text.lower()
             for stat in stats_in_sentence:
+                # Whitelist stats that the user explicitly provided
+                if stat in question_stats:
+                    continue
                 # Check if the stat appears in the cited doc's chunks
                 if stat.lower() not in doc_text_lower:
                     # Also check without % sign in case formatting differs
+                    # And check without commas
                     bare = stat.replace('%', '')
-                    if bare not in doc_text_lower:
+                    no_comma = stat.replace(',', '')
+                    if bare.lower() not in doc_text_lower and no_comma.lower() not in doc_text_lower:
                         mismatches.append(
                             f"Stat '{stat}' in claim citing {doc_id} not found in {doc_id} chunks: "
-                            f"'{clean[:100]}...'"
+                            f"'{clean}'"
                         )
     return mismatches
 
@@ -140,18 +145,16 @@ class CriticAgent:
         self.retriever = retriever
 
     def _find_chunk_for_doc(self, doc_id: str, chunks: list[dict]) -> str | None:
-        """Find the most relevant chunk text for a given doc_id."""
-        for chunk in chunks:
-            if chunk["doc_id"] == doc_id:
-                return chunk["text"]
-        return None
+        """Find all relevant chunk texts for a given doc_id and concatenate them."""
+        texts = [chunk["text"] for chunk in chunks if chunk["doc_id"] == doc_id]
+        return "\n...\n".join(texts) if texts else None
 
     def _check_support(self, claim: str, doc_id: str, excerpt: str) -> dict:
         """Ask Llama 8B if the excerpt supports the claim."""
         prompt = SUPPORT_CHECK_PROMPT.format(
             claim=claim,
             doc_id=doc_id,
-            excerpt=excerpt[:2000],  # Limit excerpt length
+            excerpt=excerpt[:8000],  # Limit excerpt length but wide enough to fit chunks
         )
         try:
             response = self.llm.invoke([
@@ -212,32 +215,32 @@ class CriticAgent:
 
             # Step 1: Existence check — is doc_id in retrieved context?
             if doc_id not in valid_doc_ids:
-                flagged_claims.append(
-                    f"Claim '{claim[:80]}...' cites {doc_id} which was NOT retrieved — not in context"
-                )
+                msg = f"Claim '{claim}' cites {doc_id} which was NOT retrieved — not in context"
+                print(f"[Critic] {msg}")
+                flagged_claims.append(msg)
                 continue
 
             # Step 2: Support check — does the chunk actually support the claim?
             excerpt = self._find_chunk_for_doc(doc_id, retrieved_chunks)
             if excerpt is None:
-                flagged_claims.append(
-                    f"Claim '{claim[:80]}...' cites {doc_id} but no chunk text found for verification"
-                )
+                msg = f"Claim '{claim}' cites {doc_id} but no chunk text found for verification"
+                print(f"[Critic] {msg}")
+                flagged_claims.append(msg)
                 continue
 
             check = self._check_support(claim, doc_id, excerpt)
             if check.get("supported", True):
                 supported_claims += 1
             else:
-                flagged_claims.append(
-                    f"Claim '{claim[:80]}...' cites {doc_id} — UNSUPPORTED: {check.get('explanation', 'N/A')}"
-                )
+                msg = f"Claim '{claim}' cites {doc_id} — UNSUPPORTED: {check.get('explanation', 'N/A')}"
+                print(f"[Critic] {msg}")
+                flagged_claims.append(msg)
 
         # Compute confidence
         confidence = supported_claims / total_claims if total_claims > 0 else 1.0
 
         # Step 3: Stat-level verification — check numbers are in the right source doc
-        stat_mismatches = _verify_stats_against_source(answer, retrieved_chunks)
+        stat_mismatches = _verify_stats_against_source(answer, retrieved_chunks, question)
         if stat_mismatches:
             print(f"[Critic] Stat mismatches found: {len(stat_mismatches)}")
             for mm in stat_mismatches:
