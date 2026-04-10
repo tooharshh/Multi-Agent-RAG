@@ -1,12 +1,27 @@
-# Multi-Agent RAG — AI in Healthcare
+<p align="center">
+  <img src="assets/banner.png" alt="Banner">
+</p>
 
-This is a submission for the Together Fund Assignment, which involved building an agentic Retrieval-Augmented Generation system on a healthcare AI knowledge base. Three specialized agents work together to classify queries, retrieve relevant context through hybrid search, generate cited answers with chain-of-thought reasoning, and verify every citation before presenting results. The system includes a modern React frontend that streams agent activity in real-time.
+<h1 align="center">Multi-Agent RAG — AI in Healthcare</h1>
 
-**Eval Score: 101/110 (91.8%) — 45.9/50 normalized**
+<p align="center">
+  <strong>This is a submission for the Together Fund Assignment, which involved building an agentic Retrieval-Augmented Generation system on a healthcare AI knowledge base. Three specialized agents work together to classify queries, retrieve relevant context through hybrid search, generate cited answers with chain-of-thought reasoning, and verify every citation before presenting results. The system includes a modern React frontend that streams agent activity in real-time.</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Eval_Score-101%2F110_(91.8%25)-brightgreen.svg" alt="Eval Score">
+  <img src="https://img.shields.io/badge/Normalized-45.9%2F50-blue.svg" alt="Normalized Score">
+</p>
+
+<p align="center">
+  <a href="#-setup--installation">Quick Start</a> •
+  <a href="#-how-it-works">How it works</a> •
+  <a href="#-architecture">Architecture</a>
+</p>
 
 ---
 
-## How I Approached This
+## 🎯 How I Approached This
 
 The assignment asked for an agentic RAG system on a healthcare AI knowledge base with multi-step reasoning and cited answers. Instead of building a single monolithic pipeline, I broke the problem into three distinct agents — each handling a different stage of the reasoning process. The idea was that separating concerns (routing, reasoning, verification) would make the system more reliable and its outputs more transparent.
 
@@ -16,54 +31,15 @@ On the frontend side, I replaced the initial Streamlit prototype with a Next.js 
 
 ---
 
-## Architecture
+## 💡 Architecture
 
-```
-User Question
-     │
-     ▼
-┌─────────────────────────────────────────────┐
-│  Agent 1 — Query Decomposer & Retriever     │
-│  (Llama 3.1 8B)                             │
-│                                             │
-│  1. Classify: simple vs complex             │
-│  2. Decompose complex → 2-6 sub-queries     │
-│  3. Hybrid retrieval per sub-query          │
-│     • Dense search (ChromaDB + mpnet)       │
-│     • Sparse search (BM25)                  │
-│     • Reciprocal Rank Fusion                │
-│     • Cross-encoder re-ranking              │
-└──────────────────┬──────────────────────────┘
-                   │ retrieved chunks
-                   ▼
-┌─────────────────────────────────────────────┐
-│  Agent 2 — Reasoner & Synthesizer           │
-│  (Qwen 3 235B for complex, Llama 8B lite)   │
-│                                             │
-│  1. Chain-of-thought reasoning (4 steps)    │
-│  2. Multi-document synthesis with [DOC-XXX] │
-│  3. Conversation-aware follow-ups           │
-└──────────────────┬──────────────────────────┘
-                   │ answer + citations
-                   ▼
-┌─────────────────────────────────────────────┐
-│  Agent 3 — Critic & Verifier                │
-│  (Llama 3.1 8B)                             │
-│                                             │
-│  1. Extract cited claims from answer        │
-│  2. Verify each claim against source chunks │
-│  3. Compute confidence score                │
-│  4. Flag unsupported claims                 │
-└──────────────────┬──────────────────────────┘
-                   │
-                   ▼
-            Final Response
-   (answer + reasoning + sources + confidence)
-```
+<p align="center">
+  <img src="assets/architecture.png" alt="Architecture Diagram" width="100%">
+</p>
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Multi-Agent-RAG/
@@ -101,7 +77,7 @@ Multi-Agent-RAG/
 
 ---
 
-## Tech Stack
+## 💻 Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -119,7 +95,7 @@ Multi-Agent-RAG/
 
 ---
 
-## How It Works
+## ⚙️ How It Works
 
 ### Indexing Pipeline
 1. Loads 21 articles from the enriched knowledge base JSON
@@ -156,7 +132,7 @@ The FastAPI backend streams events in AI SDK format (`0:` text tokens, `2:` stru
 
 ---
 
-## Setup & Installation
+## 🚀 Setup & Installation
 
 ### Prerequisites
 - Python 3.11+
@@ -222,7 +198,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## Running the Evaluation
+## 🧪 Running the Evaluation
 
 The eval script runs all 11 questions through the pipeline and auto-scores using an LLM judge:
 
@@ -246,7 +222,7 @@ Scoring dimensions per question (0-3 each + completion + reasoning_trace):
 
 ---
 
-## Key Design Decisions
+## 🧠 Key Design Decisions
 
 1. **Dual-LLM Strategy**: Llama 8B handles fast tasks (routing, decomposition, verification) while Qwen 3 235B handles complex multi-document synthesis. This keeps latency low for simple queries while maintaining quality on hard questions.
 
@@ -260,7 +236,7 @@ Scoring dimensions per question (0-3 each + completion + reasoning_trace):
 
 ---
 
-## Oops Moments (Bugs Found & Fixed)
+## 🐛 Oops Moments (Bugs Found & Fixed)
 
 Two bugs I caught during demo testing that are worth documenting:
 
