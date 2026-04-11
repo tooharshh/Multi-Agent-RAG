@@ -21,11 +21,18 @@ export type RagCritic = {
   flagged_claims: string[];
 };
 
+export type RagFollowUp = {
+  detected: boolean;
+  rewritten_question: string | null;
+  original_question: string;
+};
+
 export type RagCustomMetadata = {
   agentSteps: AgentStep[];
   reasoning: string;
   sources: RagSource[];
   critic: RagCritic | null;
+  followUp: RagFollowUp | null;
 };
 
 export const ragAdapter: ChatModelAdapter = {
@@ -57,6 +64,7 @@ export const ragAdapter: ChatModelAdapter = {
       reasoning: "",
       sources: [],
       critic: null,
+      followUp: null,
     };
 
     while (true) {
@@ -114,6 +122,12 @@ export const ragAdapter: ChatModelAdapter = {
                 meta.critic = {
                   confidence_score: (item.confidence_score as number) || 0,
                   flagged_claims: (item.flagged_claims as string[]) || [],
+                };
+              } else if (item.type === "follow_up_info") {
+                meta.followUp = {
+                  detected: (item.detected as boolean) || false,
+                  rewritten_question: (item.rewritten_question as string) || null,
+                  original_question: (item.original_question as string) || "",
                 };
               }
             }

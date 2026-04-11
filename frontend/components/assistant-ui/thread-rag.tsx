@@ -261,7 +261,7 @@ const AssistantMessage: FC = () => {
     >
       {/* Agent progression steps */}
       {custom?.agentSteps && custom.agentSteps.length > 0 && (
-        <AgentSteps steps={custom.agentSteps} />
+        <AgentSteps steps={custom.agentSteps} followUp={custom.followUp} />
       )}
 
       <div className="aui-assistant-message-content wrap-break-word px-2 text-foreground leading-relaxed">

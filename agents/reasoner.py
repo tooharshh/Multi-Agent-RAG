@@ -439,16 +439,33 @@ class ReasonerAgent:
             return selected
 
         def _build_messages(prompt, chunk_list):
-            """Build LLM messages with given prompt and chunk list."""
-            ctx = _format_context(chunk_list, question=question)
+            """Build LLM messages with given prompt and chunk list.
+            
+            If a rewritten_question is available from Agent 1 follow-up resolution,
+            use it as the question and inject ZERO history (the rewrite already
+            carries full context). Otherwise, inject the last 2 turns of compressed
+            history as a lightweight fallback.
+            """
+            rewritten_q = context_package.get("rewritten_question")
+            q_to_use = rewritten_q if rewritten_q else question
+
+            ctx = _format_context(chunk_list, question=q_to_use)
             avail_ids = sorted(set(c["doc_id"] for c in chunk_list))
             msgs = [SystemMessage(content=prompt)]
-            for turn in conversation_history:
-                msgs.append(HumanMessage(content=turn["user"]))
-                if turn.get("assistant_answer"):
-                    msgs.append(AIMessage(content=turn["assistant_answer"]))
+
+            # History injection: zero if rewritten, lightweight fallback otherwise
+            if not rewritten_q and conversation_history:
+                # Inject last 2 turns only, truncated
+                from utils.history import compress_history, history_budget_check
+                compressed = compress_history(conversation_history, max_turns=2, fallback_answer_tokens=100)
+                compressed = history_budget_check(compressed, max_total_tokens=400, mode="answer")
+                for turn in compressed:
+                    msgs.append(HumanMessage(content=turn["user"]))
+                    if turn.get("assistant_answer"):
+                        msgs.append(AIMessage(content=turn["assistant_answer"]))
+
             msgs.append(HumanMessage(
-                content=f"QUESTION: {question}\n\n"
+                content=f"QUESTION: {q_to_use}\n\n"
                         f"CRITICAL DISAMBIGUATION RULES:\n"
                         f"- When multiple documents contain similar-sounding statistics, choose the one whose EXACT wording matches the question's key terms. "
                         f"Do NOT pick a general statistic when a more specific one matches the question's terminology.\n"

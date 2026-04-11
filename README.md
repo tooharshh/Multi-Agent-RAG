@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Eval_Score-101%2F110_(91.8%25)-brightgreen.svg" alt="Eval Score">
-  <img src="https://img.shields.io/badge/Normalized-45.9%2F50-blue.svg" alt="Normalized Score">
+  <img src="https://img.shields.io/badge/Eval_Score-103%2F110_(93.6%25)-brightgreen.svg" alt="Eval Score">
+  <img src="https://img.shields.io/badge/Normalized-46.8%2F50-blue.svg" alt="Normalized Score">
 </p>
 
 <p align="center">
@@ -210,8 +210,8 @@ Results are saved to `eval/eval_results.json`. My final scores:
 
 | Metric | Score |
 |--------|-------|
-| Total Raw Score | 101 / 110 |
-| Normalized Score | 45.9 / 50 |
+| Total Raw Score | 103 / 110 |
+| Normalized Score | 46.8 / 50 |
 | Questions Evaluated | 11 |
 
 Scoring dimensions per question (0-3 each + completion + reasoning_trace):

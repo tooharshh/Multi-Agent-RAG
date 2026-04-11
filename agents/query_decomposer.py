@@ -1,6 +1,7 @@
 """
 Agent 1 — Query Decomposer & Retriever.
 Routes queries as simple/complex, decomposes complex queries, retrieves context.
+Handles follow-up detection, query rewriting, clarification, and meta routes.
 """
 
 import json
@@ -10,6 +11,8 @@ from dotenv import load_dotenv
 from langchain_cerebras import ChatCerebras
 from langchain_core.messages import SystemMessage, HumanMessage
 
+from utils.history import compress_history, history_budget_check
+
 load_dotenv(override=True)
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 
@@ -18,6 +21,37 @@ llm_fast = ChatCerebras(
     api_key=CEREBRAS_API_KEY,
     temperature=0,
 )
+
+# ── Follow-up detection prompt ───────────────────────────────────────────────
+
+FOLLOW_UP_DETECTOR_PROMPT = """You are a follow-up question classifier. Given a question and recent conversation context, classify it.
+
+Types:
+- "standalone": A self-contained question with no references to prior conversation. Includes well-formed healthcare AI questions that happen to come after other questions but do not reference them.
+- "follow_up": References something from prior conversation (pronouns like "it/that/they", "that study", "tell me more", "what about X", "continue", "the other one", "expand on"). CAN be resolved from the provided conversation context.
+- "follow_up_doc": Explicitly references a DOC-XXX identifier (e.g. "tell me more about DOC-015").
+- "ambiguous": References prior conversation BUT the referent is unclear even with the context provided.
+- "meta": Not a knowledge question — asks about the system, the answer format, why something was cited, or requests a summary of the conversation itself (e.g. "why did you cite that?", "summarize our discussion").
+
+Output JSON only:
+{"type": "standalone" | "follow_up" | "follow_up_doc" | "ambiguous" | "meta", "reasoning": "one sentence"}"""
+
+# ── Query rewrite prompt ─────────────────────────────────────────────────────
+
+REWRITE_SYSTEM_PROMPT = """You are a query rewriter for a healthcare AI knowledge base.
+The user asked a follow-up question that references prior conversation.
+Rewrite it into a fully self-contained, specific question.
+
+RULES:
+1. The rewritten question must be understandable WITHOUT any conversation context.
+2. Preserve the user's intent exactly — do not add topics they didn't ask about.
+3. If the user references a specific study, statistic, or concept from the conversation, name it explicitly in the rewrite.
+4. If the user says "tell me more", "continue", "go on", or "what else", rewrite as "Provide additional details about [MAIN TOPIC from last assistant answer]".
+5. Keep the rewritten question under 40 words.
+6. Do NOT invent facts — only reference entities that appear in the conversation context provided.
+
+Output JSON only:
+{"rewritten_question": "the fully self-contained question"}"""
 
 # ── Router prompt ────────────────────────────────────────────────────────────
 
@@ -108,25 +142,101 @@ def _parse_json_response(text: str) -> dict:
 
 class QueryDecomposerAgent:
     """
-    Agent 1: Classifies query complexity, decomposes if complex,
-    retrieves relevant chunks via HybridRetriever.
+    Agent 1: Detects follow-ups, rewrites queries, classifies complexity,
+    decomposes if complex, retrieves relevant chunks via HybridRetriever.
     """
 
     def __init__(self, retriever):
-        """
-        Args:
-            retriever: HybridRetriever instance with .retrieve(query, top_k) method
-        """
         self.retriever = retriever
         self.llm = llm_fast
 
-    def _classify(self, question: str, conversation_history: list) -> dict:
-        """Classify query as simple or complex using Llama 8B."""
+    # ── Regex fast-paths for follow-up detection ─────────────────────────
+
+    _CONTINUE_RE = re.compile(
+        r"^\s*(continue|go on|what else|more|keep going|tell me more|expand on that)\s*[?.!]*\s*$",
+        re.IGNORECASE,
+    )
+    _DOC_REF_RE = re.compile(r"DOC-\d{3}", re.IGNORECASE)
+
+    def _detect_follow_up(self, question: str, compressed_history: list[dict]) -> dict:
+        """
+        Step 0: Classify whether the question is standalone, a follow-up, ambiguous, or meta.
+        Uses regex fast-paths before falling back to LLM.
+        """
+        # Fast-path: no history → standalone by definition
+        if not compressed_history:
+            return {"type": "standalone", "reasoning": "No conversation history"}
+
+        # Fast-path: explicit DOC-XXX reference
+        doc_match = self._DOC_REF_RE.search(question)
+        if doc_match:
+            return {"type": "follow_up_doc", "reasoning": f"Explicit reference to {doc_match.group()}"}
+
+        # Fast-path: bare continuation phrases
+        if self._CONTINUE_RE.match(question):
+            return {"type": "follow_up", "reasoning": "Continuation request detected"}
+
+        # LLM classification with compressed context
+        context_block = self._format_history_for_prompt(compressed_history)
+        messages = [
+            SystemMessage(content=FOLLOW_UP_DETECTOR_PROMPT),
+            HumanMessage(
+                content=f"CONVERSATION CONTEXT:\n{context_block}\n\nCURRENT QUESTION: {question}"
+            ),
+        ]
+
+        try:
+            response = self.llm.invoke(messages)
+            result = _parse_json_response(response.content)
+            ftype = result.get("type", "standalone")
+            if ftype not in ("standalone", "follow_up", "follow_up_doc", "ambiguous", "meta"):
+                ftype = "standalone"
+            return {"type": ftype, "reasoning": result.get("reasoning", "")}
+        except Exception:
+            return {"type": "standalone", "reasoning": "Detection failed — defaulting to standalone"}
+
+    def _rewrite_question(self, question: str, compressed_history: list[dict]) -> str | None:
+        """
+        Step 1: Rewrite a follow-up question into a self-contained standalone query.
+        Returns the rewritten question string, or None if rewrite fails.
+        """
+        context_block = self._format_history_for_prompt(compressed_history)
+        messages = [
+            SystemMessage(content=REWRITE_SYSTEM_PROMPT),
+            HumanMessage(
+                content=f"CONVERSATION CONTEXT:\n{context_block}\n\nFOLLOW-UP QUESTION: {question}"
+            ),
+        ]
+
+        try:
+            response = self.llm.invoke(messages)
+            result = _parse_json_response(response.content)
+            rewritten = result.get("rewritten_question", "").strip()
+            if rewritten and len(rewritten) > 5:
+                return rewritten
+        except Exception:
+            pass
+        return None
+
+    def _format_history_for_prompt(self, compressed_history: list[dict]) -> str:
+        """Format compressed history into a compact text block for LLM prompts."""
+        lines = []
+        for i, turn in enumerate(compressed_history):
+            lines.append(f"Turn {i+1} — User: {turn['user']}")
+            if turn.get("topic_line"):
+                lines.append(f"  Assistant topics: {turn['topic_line']}")
+        return "\n".join(lines)
+
+    def _classify(self, question: str, compressed_history: list[dict]) -> dict:
+        """Classify query as simple, complex, or off_topic using Llama 8B."""
         messages = [SystemMessage(content=ROUTER_SYSTEM_PROMPT)]
 
-        # Include conversation context for follow-up awareness
-        for turn in conversation_history:
+        # Include compressed conversation context (user + assistant topics)
+        for turn in compressed_history:
             messages.append(HumanMessage(content=turn["user"]))
+            if turn.get("topic_line"):
+                # Inject topic-line as a lightweight assistant summary
+                messages.append(HumanMessage(content=f"[Prior answer covered: {turn['topic_line']}]"))
 
         messages.append(HumanMessage(content=question))
 
@@ -139,13 +249,15 @@ class QueryDecomposerAgent:
         except (json.JSONDecodeError, ValueError):
             return {"route": "complex", "reasoning": "Failed to parse — defaulting to complex"}
 
-    def _decompose(self, question: str, conversation_history: list) -> list[str]:
+    def _decompose(self, question: str, compressed_history: list[dict]) -> list[str]:
         """Break a complex question into 2-4 sub-queries using Llama 8B."""
         messages = [SystemMessage(content=DECOMPOSER_SYSTEM_PROMPT)]
 
-        # Context from conversation
-        for turn in conversation_history:
+        # Context from compressed conversation
+        for turn in compressed_history:
             messages.append(HumanMessage(content=turn["user"]))
+            if turn.get("topic_line"):
+                messages.append(HumanMessage(content=f"[Prior answer covered: {turn['topic_line']}]"))
 
         messages.append(HumanMessage(content=question))
 
@@ -162,28 +274,104 @@ class QueryDecomposerAgent:
     def run(self, question: str, conversation_history: list | None = None) -> dict:
         """
         Full Agent 1 pipeline:
-        1. Classify query complexity
-        2. Decompose if complex
-        3. Retrieve chunks for each sub-query
-        4. Deduplicate and return context package
+        0. Compress history + detect follow-ups
+        1. Rewrite follow-up into standalone question (if needed)
+        2. Classify query complexity
+        3. Decompose if complex
+        4. Retrieve chunks for each sub-query
+        5. Deduplicate and return context package
 
         Returns:
             {
-                "route": "simple" | "complex",
+                "route": "simple" | "complex" | "off_topic" | "clarification" | "meta",
                 "sub_queries": [...],
                 "retrieved_chunks": [...],
-                "source_doc_ids": [...]
+                "source_doc_ids": [...],
+                "follow_up_detected": bool,
+                "rewritten_question": str | None,
+                "original_question": str,
+                "clarification_question": str | None,
             }
         """
         if conversation_history is None:
             conversation_history = []
 
-        # Stage A: Route
-        classification = self._classify(question, conversation_history)
+        # ── Step 0: Compress history + detect follow-up ──────────────────
+        compressed = compress_history(conversation_history, max_turns=5, topic_tokens=80)
+        compressed = history_budget_check(compressed, max_total_tokens=800, mode="topic")
+
+        detection = self._detect_follow_up(question, compressed)
+        follow_up_type = detection["type"]
+        print(f"[Agent1] Follow-up detection: {follow_up_type} — {detection.get('reasoning', '')}")
+
+        rewritten_question = None
+        effective_question = question  # the question used for routing and retrieval
+
+        # ── Handle special follow-up types ───────────────────────────────
+
+        if follow_up_type == "ambiguous":
+            # Build clarification from recent topic-lines
+            topics = []
+            for turn in compressed[-3:]:
+                if turn.get("topic_line"):
+                    topics.append(turn["topic_line"])
+            topic_summary = "; ".join(topics) if topics else "various healthcare AI topics"
+            clarification_q = (
+                f"Could you clarify what you're referring to? "
+                f"In our conversation, we discussed: {topic_summary}. "
+                f"Which topic would you like to explore further?"
+            )
+            print(f"[Agent1] Ambiguous follow-up — requesting clarification.")
+            return {
+                "route": "clarification",
+                "sub_queries": [],
+                "retrieved_chunks": [],
+                "source_doc_ids": [],
+                "follow_up_detected": True,
+                "rewritten_question": None,
+                "original_question": question,
+                "clarification_question": clarification_q,
+            }
+
+        if follow_up_type == "meta":
+            print(f"[Agent1] Meta question detected — no retrieval needed.")
+            return {
+                "route": "meta",
+                "sub_queries": [],
+                "retrieved_chunks": [],
+                "source_doc_ids": [],
+                "follow_up_detected": True,
+                "rewritten_question": None,
+                "original_question": question,
+                "clarification_question": None,
+            }
+
+        if follow_up_type == "follow_up_doc":
+            # Extract DOC-XXX and retrieve more chunks from that specific doc
+            doc_match = self._DOC_REF_RE.search(question)
+            target_doc = doc_match.group().upper() if doc_match else None
+            if target_doc:
+                rewritten = f"Provide detailed information from {target_doc}"
+                rewritten_question = rewritten
+                effective_question = rewritten
+                print(f"[Agent1] Direct doc reference — rewritten to: {effective_question}")
+
+        elif follow_up_type == "follow_up":
+            # ── Step 1: Rewrite follow-up ────────────────────────────────
+            rewritten = self._rewrite_question(question, compressed)
+            if rewritten:
+                rewritten_question = rewritten
+                effective_question = rewritten
+                print(f"[Agent1] Rewritten follow-up: '{question}' → '{effective_question}'")
+            else:
+                print(f"[Agent1] Rewrite failed — using original question")
+
+        # ── Step 2: Route (using effective question) ─────────────────────
+        classification = self._classify(effective_question, compressed)
         route = classification["route"]
         print(f"[Agent1] Route: {route} — {classification.get('reasoning', '')}")
 
-        # Off-topic guard: greetings and non-healthcare queries skip retrieval
+        # Off-topic guard
         if route == "off_topic":
             print("[Agent1] Off-topic query detected — skipping retrieval.")
             return {
@@ -191,14 +379,18 @@ class QueryDecomposerAgent:
                 "sub_queries": [],
                 "retrieved_chunks": [],
                 "source_doc_ids": [],
+                "follow_up_detected": follow_up_type != "standalone",
+                "rewritten_question": rewritten_question,
+                "original_question": question,
+                "clarification_question": None,
             }
 
-        # Stage B: Decompose complex queries; simple queries use single-hop retrieval
+        # ── Step 3: Decompose + retrieve (using effective question) ──────
         if route == "simple":
-            sub_queries = [question]
+            sub_queries = [effective_question]
             print(f"[Agent1] Simple route — single-hop retrieval (no decomposition)")
         else:
-            sub_queries = self._decompose(question, conversation_history)
+            sub_queries = self._decompose(effective_question, compressed)
             print(f"[Agent1] Sub-queries: {sub_queries}")
 
         # Stage C: Retrieve for each sub-query
@@ -208,8 +400,8 @@ class QueryDecomposerAgent:
         # Simple route: single retrieval with top_k=15 (broad coverage)
         # Complex route: multi-query retrieval with top_k=15 each
         queries_to_search = list(sub_queries)
-        if route == "complex" and question not in queries_to_search:
-            queries_to_search.append(question)
+        if route == "complex" and effective_question not in queries_to_search:
+            queries_to_search.append(effective_question)
 
         for sq in queries_to_search:
             top_k = 15 if route == "simple" else 15
@@ -230,4 +422,8 @@ class QueryDecomposerAgent:
             "sub_queries": sub_queries,
             "retrieved_chunks": all_chunks,
             "source_doc_ids": source_doc_ids,
+            "follow_up_detected": follow_up_type != "standalone",
+            "rewritten_question": rewritten_question,
+            "original_question": question,
+            "clarification_question": None,
         }

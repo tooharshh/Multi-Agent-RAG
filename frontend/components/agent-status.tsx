@@ -1,7 +1,7 @@
 "use client";
 
 import { type FC, useState } from "react";
-import { SearchIcon, BrainIcon, PenLineIcon, CheckIcon, ChevronDownIcon } from "lucide-react";
+import { SearchIcon, BrainIcon, PenLineIcon, CheckIcon, ChevronDownIcon, RepeatIcon } from "lucide-react";
 
 interface AgentStep {
   agent: "research" | "analysis" | "writer";
@@ -11,14 +11,21 @@ interface AgentStep {
   sub_queries?: string[];
 }
 
+interface FollowUpInfo {
+  detected: boolean;
+  rewritten_question: string | null;
+  original_question: string;
+}
+
 const agentConfig = {
   research: { label: "Research Agent", icon: SearchIcon },
   analysis: { label: "Analysis Agent", icon: BrainIcon },
   writer: { label: "Writer Agent", icon: PenLineIcon },
 };
 
-export const AgentSteps: FC<{ steps: AgentStep[] }> = ({ steps }) => {
+export const AgentSteps: FC<{ steps: AgentStep[]; followUp?: FollowUpInfo | null }> = ({ steps, followUp }) => {
   const [showQueries, setShowQueries] = useState(false);
+  const [showRewrite, setShowRewrite] = useState(false);
   if (steps.length === 0) return null;
 
   const allAgents: Array<"research" | "analysis" | "writer"> = [
@@ -29,6 +36,23 @@ export const AgentSteps: FC<{ steps: AgentStep[] }> = ({ steps }) => {
 
   return (
     <div className="mb-4 space-y-1">
+      {followUp?.detected && followUp.rewritten_question && (
+        <div className="mb-2">
+          <button
+            onClick={() => setShowRewrite((v) => !v)}
+            className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100 transition-colors dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-950/60"
+          >
+            <RepeatIcon className="size-3" />
+            Follow-up resolved
+          </button>
+          {showRewrite && (
+            <div className="mt-1.5 ml-1 rounded-md bg-blue-50/60 px-3 py-2 text-xs text-blue-600 dark:bg-blue-950/30 dark:text-blue-300">
+              <span className="font-medium">Rewritten as:</span>{" "}
+              {followUp.rewritten_question}
+            </div>
+          )}
+        </div>
+      )}
       {allAgents.map((agentKey) => {
         const step = steps.find((s) => s.agent === agentKey);
         const config = agentConfig[agentKey];

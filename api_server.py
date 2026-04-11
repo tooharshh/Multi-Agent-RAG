@@ -158,6 +158,56 @@ async def chat(request: Request):
         num_chunks = len(context_package["retrieved_chunks"])
         num_docs = len(context_package["source_doc_ids"])
 
+        # ── Stream follow-up info if detected ────────────────────────────
+        follow_up_detected = context_package.get("follow_up_detected", False)
+        rewritten_question = context_package.get("rewritten_question")
+        if follow_up_detected:
+            yield encode_data([{
+                "type": "follow_up_info",
+                "detected": True,
+                "rewritten_question": rewritten_question,
+                "original_question": context_package.get("original_question", question),
+            }])
+            await asyncio.sleep(0)
+
+        # ── Clarification short-circuit ──────────────────────────────────
+        if route == "clarification":
+            clarification_q = context_package.get("clarification_question", "Could you clarify your question?")
+            yield encode_data([{
+                "type": "agent_status",
+                "agent": "research",
+                "status": "complete",
+                "message": "Asking for clarification.",
+                "route": route,
+                "sub_queries": [],
+            }])
+            await asyncio.sleep(0)
+            yield encode_text(clarification_q)
+            yield encode_finish()
+            return
+
+        # ── Meta short-circuit ───────────────────────────────────────────
+        if route == "meta":
+            yield encode_data([{
+                "type": "agent_status",
+                "agent": "research",
+                "status": "complete",
+                "message": "Responding to meta question.",
+                "route": route,
+                "sub_queries": [],
+            }])
+            await asyncio.sleep(0)
+
+            meta_response = (
+                "That's a question about our conversation rather than about the healthcare AI knowledge base. "
+                "I can best help you by answering questions about AI in healthcare topics like FDA device approvals, "
+                "clinical AI adoption, drug discovery, regulation, or ethics. "
+                "Could you rephrase your question about the healthcare AI content?"
+            )
+            yield encode_text(meta_response)
+            yield encode_finish()
+            return
+
         # Off-topic short-circuit: respond without running Agent 2/3
         if route == "off_topic":
             yield encode_data([{
@@ -188,11 +238,15 @@ async def chat(request: Request):
         else:
             decompose_msg = "Direct lookup — single query"
 
+        research_msg = f"{decompose_msg}. Retrieved {num_chunks} passages from {num_docs} documents."
+        if follow_up_detected and rewritten_question:
+            research_msg = f"Follow-up resolved. {research_msg}"
+
         yield encode_data([{
             "type": "agent_status",
             "agent": "research",
             "status": "complete",
-            "message": f"{decompose_msg}. Retrieved {num_chunks} passages from {num_docs} documents.",
+            "message": research_msg,
             "route": route,
             "sub_queries": sub_queries,
         }])
