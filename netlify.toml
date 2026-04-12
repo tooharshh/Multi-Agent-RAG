@@ -1,0 +1,8 @@
+[build]
+  base = "frontend"
+  command = "pnpm run build"
+  publish = ".next"
+
+[build.environment]
+  # Netlify usually auto-detects Next.js but good to ensure
+  NEXT_PRIVATE_STANDALONE = "true"

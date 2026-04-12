@@ -17,10 +17,11 @@ interface FollowUpInfo {
   original_question: string;
 }
 
+
 const agentConfig = {
-  research: { label: "Research Agent", icon: SearchIcon },
-  analysis: { label: "Analysis Agent", icon: BrainIcon },
-  writer: { label: "Writer Agent", icon: PenLineIcon },
+  research: { label: "Routing Agent", icon: SearchIcon },
+  analysis: { label: "Reasoning Agent", icon: BrainIcon },
+  writer: { label: "Critic Agent", icon: PenLineIcon },
 };
 
 export const AgentSteps: FC<{ steps: AgentStep[]; followUp?: FollowUpInfo | null }> = ({ steps, followUp }) => {
