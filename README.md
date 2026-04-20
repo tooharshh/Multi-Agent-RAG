@@ -5,12 +5,7 @@
 <h1 align="center">Multi-Agent RAG — AI in Healthcare</h1>
 
 <p align="center">
-  <strong>This is a submission for the Together Fund Assignment, which involved building an agentic Retrieval-Augmented Generation system on a healthcare AI knowledge base. Three specialized agents work together to classify queries, retrieve relevant context through hybrid search, generate cited answers with chain-of-thought reasoning, and verify every citation before presenting results. The system includes a modern React frontend that streams agent activity in real-time.</strong>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Eval_Score-103%2F110_(93.6%25)-brightgreen.svg" alt="Eval Score">
-  <img src="https://img.shields.io/badge/Normalized-46.8%2F50-blue.svg" alt="Normalized Score">
+  <strong> An agentic Retrieval-Augmented Generation system on a healthcare AI knowledge base. Three specialized agents work together to classify queries, retrieve relevant context through hybrid search, generate cited answers with chain-of-thought reasoning, and verify every citation before presenting results. The system includes a modern React frontend that streams agent activity in real-time.</strong>
 </p>
 
 <p align="center">
@@ -23,9 +18,9 @@
 
 ## 🎯 How I Approached This
 
-The assignment asked for an agentic RAG system on a healthcare AI knowledge base with multi-step reasoning and cited answers. Instead of building a single monolithic pipeline, I broke the problem into three distinct agents — each handling a different stage of the reasoning process. The idea was that separating concerns (routing, reasoning, verification) would make the system more reliable and its outputs more transparent.
+My idea was to experiment with an agentic RAG system on a healthcare AI knowledge base with multi-step reasoning and cited answers. Instead of building a single monolithic pipeline, I broke the problem into three distinct agents — each handling a different stage of the reasoning process. The idea was that separating concerns (routing, reasoning, verification) would make the system more reliable and its outputs more transparent.
 
-For the retrieval layer, I combined dense vector search with sparse BM25 and fused them using Reciprocal Rank Fusion, then re-ranked with a cross-encoder. This hybrid approach consistently outperformed either method alone, especially for questions that mixed specific terminology with broad concepts.
+For the retrieval layer, I combined dense vector search + sparse BM25 and fused them using Reciprocal Rank Fusion, then re-ranked with a cross-encoder. This hybrid approach consistently outperformed either method alone, especially for questions that mixed specific terminology with broad concepts.
 
 On the frontend side, I replaced the initial Streamlit prototype with a Next.js app using the `assistant-ui` library. The backend streams agent status updates, reasoning traces, sources, and confidence scores alongside text tokens — so the user sees exactly what each agent is doing as the answer is being generated.
 
@@ -100,7 +95,7 @@ Multi-Agent-RAG/
 ### Indexing Pipeline
 1. Loads 21 articles from the enriched knowledge base JSON
 2. Chunks each article into ~512-token segments with 128-token overlap using tiktoken
-3. Embeds all 708 chunks with `all-mpnet-base-v2` on CUDA and stores in ChromaDB
+3. Embeds all chunks with `all-mpnet-base-v2` on CUDA and stores in ChromaDB
 4. Builds a parallel BM25 index for sparse retrieval
 
 ### Query Processing
@@ -200,7 +195,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🧪 Running the Evaluation
 
-The eval script runs all 11 questions through the pipeline and auto-scores using an LLM judge:
+The eval script runs 11 questions through the pipeline and auto-scores using an LLM judge:
 
 ```bash
 python eval/run_eval.py
@@ -222,23 +217,9 @@ Scoring dimensions per question (0-3 each + completion + reasoning_trace):
 
 ---
 
-## 🧠 Key Design Decisions
+## Pesky Bugs 
 
-1. **Dual-LLM Strategy**: Llama 8B handles fast tasks (routing, decomposition, verification) while Qwen 3 235B handles complex multi-document synthesis. This keeps latency low for simple queries while maintaining quality on hard questions.
-
-2. **Hybrid Retrieval + RRF**: Dense search alone misses keyword-heavy medical terms; BM25 alone misses semantic similarity. Fusing both with Reciprocal Rank Fusion and then re-ranking with a cross-encoder gave the best results.
-
-3. **Separate Critic Agent**: Having a dedicated verification step catches hallucinated citations before they reach the user. The critic re-retrieves context for flagged claims as a second chance before marking them unsupported.
-
-4. **Streaming Architecture**: Instead of waiting 10-15 seconds for a complete response, the frontend shows live agent status, reasoning, and text as they're generated. This makes the system feel responsive even for complex queries.
-
-5. **Persistent Chat History**: Conversations are stored per-thread in localStorage using Zustand, so users can switch between past chats and continue asking follow-up questions.
-
----
-
-## 🐛 Oops Moments (Bugs Found & Fixed)
-
-Two bugs I caught during demo testing that are worth documenting:
+Two mistakes I caught during demo testing that are worth documenting:
 
 1. **"hi" triggered the full RAG pipeline.** The query router only classified inputs as `simple` or `complex` — it never considered that the input might not be a healthcare question at all. So typing "hi" would classify as `simple`, retrieve 5 documents, and the reasoner would dutifully generate an answer about Indian healthcare AI markets. Fixed by adding an `off_topic` route that detects greetings and non-healthcare inputs, returning a friendly redirect instead of running retrieval.
 

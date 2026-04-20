@@ -1,2 +1,0 @@
-CEREBRAS_API_KEY1 - csk-f5fedh6eyjeprtkmdhvtt6dvm5e8w4d3tjt8xv22cr6tfy54
-CEREBRAS_API_KEY2 - csk-d3kcpcnw44detft6h98r8dvvvmjjwnywp8cnkj38w9ypxxw8
