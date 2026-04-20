@@ -13,6 +13,7 @@ bm25_index.pkl
 
 # OS
 .DS_Store
+.github/
 Thumbs.db
 
 # Eval results (auto-generated)
@@ -20,7 +21,6 @@ eval/eval_results*.json
 eval_run.log
 
 # Debug / analysis scripts (not part of core system)
-.github
 analyze_*.py
 check_*.py
 compare_*.py
